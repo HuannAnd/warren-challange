@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Poppins&family=Roboto:wght@400;500;700&display=swap');
+
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+.background
+{
+    position: absolute;
+    background: #1111119f;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.modal
+{
+    position: relative;
+    height: auto;
+    width: 600px;
+    border-radius: 20px;
+    background-color: #bbb;
+    z-index: 2;
+    padding: 20px 60px;
+
+}
+.modal .close-icon 
+{
+    position: absolute;
+    padding: 10px 10px;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    
+}
+.modal h1 
+{
+    text-align: center;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+
+}
+/* .modal .status-painel,  */
+.modal .status-painel
+{
+    position: relative;
+    background: #fff;
+    padding: 10px 20px;
+    border-radius: 30px;
+    height: 50px;
+    width: 100%;
+
+}
+.modal .status-painel .progress-status-bar
+{
+    z-index: 10;
+    height: inherit;
+    position: absolute;
+    background: linear-gradient(180deg , red , blue);
+
+
+
+}
