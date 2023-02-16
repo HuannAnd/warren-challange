@@ -1,43 +1,35 @@
 import React from 'react'
 import './Modal.css'
-import { TransactionType } from '../../App'
-
-interface ModalTypes {
+import { TransactionType } from '../../Types/TransactionTypes'
+export interface ModalProps {
     isOpen: boolean,
-    setOpen: Function
-
+    setOpen: Function,
+    transaction: TransactionType
 }
 
-const Modal: React.FC< ModalTypes & TransactionType> = ({setOpen ,  status , title , isOpen}) => {
-    let progressStatus
-
+const Modal: React.FC< ModalProps > = ({ setOpen , transaction , isOpen }) => {
     if(!isOpen) return null
     
-    switch(status?.toUpperCase()) {
-        case 'PROCESSED':
-            progressStatus = {width: "10%"};
-
-        break;
-        case 'PROCESSING':
-            progressStatus = {width: "50%"};
-
-        break;
-        case 'CREATED':
-            progressStatus = {width: "100%"};
-
-        break;
-    }
-
     return ( 
         <div className='background'>
             <div className="modal">
-                <h1>{title}</h1>
-                <div className='close-icon' onClick={() => setOpen(false)}>x</div>
+                <h1>{transaction.title}</h1>
+                <div className='close-icon' onClick={() => setOpen(false)}></div>
                 <div className="status-painel">
-                    <div style={progressStatus} className='progress-status-bar'></div>
+                    <span><h3>Criado</h3></span>
+                    <span><h3>Em processo</h3></span>
+                    <span><h3>Processado</h3></span>
                 </div>
-                <div className="transference"></div>
-                <div className="to"></div>
+                <div className="transference">
+                    <h2>Transferindo de</h2>
+                    <span>{transaction.from}</span>
+                    <strong>{`R$${transaction.amount}`}</strong>
+                    <hr></hr>
+                    <h2>Para</h2>
+                    <span>{transaction.to}</span>
+                    <strong>{`R$${transaction.amount}`}</strong>
+                    <hr></hr>
+                </div>
             </div>
         </div>
     );
