@@ -1,30 +1,42 @@
 import React, { useState } from 'react';
+import { TransactionType } from '../../Types/TransactionTypes';
 import './FilterTransaction.css'
 
-interface FilterTransactionProps {
-    onInputChange: Func<string, void>
-    onStatusSelect: Func<string, void>
+interface Filter {
+    onInputChange: Func<FilterObject, void>
+    
 }
 
-const FilterTransaction = ({ onInputChange, onStatusSelect }: FilterTransactionProps) => {
-    const [inputData , setInputData] = useState<string>('')
+interface FilterObject {
+    filterDescritption: string | boolean
+    filterStatus: string | boolean
+}
+
+const Filter = ({ onInputChange }: Filter) => {
+    const [inputData, setInputData] = useState< FilterObject >({ filterDescritption: true, filterStatus: true })
+
+    // transactions.filter(transaction => handleFilter(transaction))
 
     return (
         <div className="container-seacher">
             <div>
                 <input
                     type="text"
-                    value={inputData}
+                    value=''
                     placeholder='Search by description of transaction'
-                    onChange={(description) => setInputData(description.target.value)}
+                    onChange={
+                        (description) => setInputData(
+                            { ...inputData, filterDescritption: description.target.value }
+                        )}
                 />
                 <button onClick={() => onInputChange(inputData)} />
             </div>
-            <select className="status-filter" onChange={e => {
-                console.log(e.target.value) 
-                onStatusSelect(e.target.value)}}
+            <select className="status-filter" onChange={
+                        (status) => setInputData(
+                            { ...inputData, filterStatus: status.target.value }
+                        )}
             >
-                <option></option>
+                <option value='' ></option>
                 <option value='created'>created</option>
                 <option value='processing'>processing</option>
                 <option value='processed'>processed</option>
@@ -33,4 +45,4 @@ const FilterTransaction = ({ onInputChange, onStatusSelect }: FilterTransactionP
     );
 }
 
-export default FilterTransaction;
+export default Filter;

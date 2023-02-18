@@ -14,7 +14,7 @@ import { TransactionType } from '../../Types/TransactionTypes'
 // equivalente à props.transactions ?? []
 // function name(transactions: TransactionType[] | null): TransactionType[] {
 //     if (!transactions) return []
-    
+
 //     return transactions
 // }
 
@@ -33,13 +33,13 @@ type TableProps = {
 
 const Table = ({ transactions, onClickRow, filter }: TableProps) => {
     const [internalTransactions, setinternalTransactions] = useState<TransactionType[]>(transactions ?? []);
-    
-    const filterTransactions = (): TransactionType[] => {
-        console.log('Table', internalTransactions, filter)
+
+    const filterTransactions = (): TransactionType[] | void => {
+        // console.log('Table', internalTransactions, filter)
         if (!filter) return internalTransactions
-        
+
         const filteredTransactions = internalTransactions.filter(filter)
-        return filteredTransactions
+        return setinternalTransactions(filteredTransactions)
     }
 
     return (
@@ -53,17 +53,17 @@ const Table = ({ transactions, onClickRow, filter }: TableProps) => {
                 </StyledTable.TRow>
             </StyledTable.THead>
             <StyledTable.TBody>
-            {
-                filterTransactions().map(transaction => {
-                    return(
-                        <TableDataRow
-                            onClickRow={onClickRow}
-                            key={transaction.id}
-                            transaction={transaction}
-                        />
-                    )
-                })
-            }
+                {
+                    filterTransactions()!.map(transaction => {
+                        return (
+                            <TableDataRow
+                                onClickRow={onClickRow}
+                                key={transaction.id}
+                                transaction={transaction}
+                            />
+                        )
+                    })
+                }
             </StyledTable.TBody>
         </StyledTable.Table>
     );

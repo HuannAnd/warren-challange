@@ -11,10 +11,12 @@
 .container-seacher {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: start;
+  justify-content: start;
   height: 52px;
   width: auto;
-  gap: 20px;
+  margin-bottom: 20px;
+  gap: 10px;
 }
 .container-seacher div {
   display: flex;
@@ -22,6 +24,7 @@
   align-items: center;
   justify-content: center;
   height: auto;
+  
   /* padding: 10px; */
 }
 .container-seacher div input,

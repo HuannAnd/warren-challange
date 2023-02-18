@@ -14,7 +14,7 @@ const TableDataRow: React.FC< TableDataRowProps > = ({ transaction, onClickRow }
             <C.TData onClick={() => onClickRow(transaction)}>{transaction.title}</C.TData>
             <C.TData>{transaction.description}</C.TData>
             <C.TData>{transaction.status}</C.TData>
-            <C.TData>{transaction.amount}</C.TData>
+            <C.TData>{`R$${transaction.amount}`}</C.TData>
         </C.TRow>
     )
 }

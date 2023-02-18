@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
-const GlobalStyles = createGlobalStyle`
+export const GlobalStyles = createGlobalStyle`
     *, *::before ,  *::after 
     {
         margin: 0;
@@ -18,6 +18,7 @@ const GlobalStyles = createGlobalStyle`
         box-sizing: border-box;
         font-family: "Poppins", sans-serif;
         background: linear-gradient(145deg, #e02b57, #222);
+        
     }
     #root
     {
@@ -25,7 +26,7 @@ const GlobalStyles = createGlobalStyle`
         flex-direction: column;
         justify-content: start;
         align-items: start;
-        gap: 30px;
+        column-gap: 30px;
         margin-top: 150px;
     }
     

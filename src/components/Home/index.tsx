@@ -5,22 +5,18 @@ import { StyledMain } from './Styles'
 import FilterTransaction from '../Filter';
 import { useEffect, useState } from 'react'
 import { TransactionType } from '../../Types/TransactionTypes'
+import Filter from '../Filter';
 
-export const Home = () => {
-  const [transactions, setTransactions] = useState<TransactionType[] | undefined>();
-  const [selectedTransaction, setSelectedTransaction] = useState<TransactionType | undefined>(undefined)
+interface HomeProps {
+  transactions: TransactionType[] | undefined
+}
+
+export const Home: React.FC< HomeProps > = ({ transactions }) => {
   const [isOpen, setOpen] = useState<boolean>(false);
+  const [selectedTransaction, setSelectedTransaction] = useState<TransactionType | undefined>(undefined)
   const [tableFilter, setTableFilter] = useState<Func<TransactionType, boolean> | undefined>(undefined)
   const [descriptionFilter, setDescriptionFilter] = useState<Func<TransactionType, boolean>>()
   const [statusFilter, setStatusFilter] = useState<Func<TransactionType, boolean>>()
-
-  useEffect(() => {
-    axios.get('https://my-json-server.typicode.com/HuannAND/database-json/db')
-        .then(response => {
-            setTransactions(response.data.transactions)
-        })
-        .catch(err => console.log(err))
-  }, [])
 
   const openModal = (transaction: TransactionType) => {
     if (transactions) {
@@ -55,8 +51,8 @@ export const Home = () => {
 
   return (
     <StyledMain>
-      <FilterTransaction onInputChange={buildInputFilter} onStatusSelect={buildStatusFilter}/>
-      {transactions && <Table transactions={transactions!} onClickRow={openModal} filter={tableFilter} />}
+      <Filter onInputChange={buildInputFilter} onStatusSelect={buildStatusFilter}/>
+      <Table transactions={transactions!} onClickRow={openModal} filter={tableFilter} />
       <Modal
         setOpen={setOpen}
         transaction={selectedTransaction!}

@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&family=Poppins&family=Roboto:wght@400;500;700&display=swap");
 
 body {
   min-height: 100vh;
@@ -17,47 +18,4 @@ body {
   align-items: start;
   gap: 30px;
   margin-top: 150px;
-}
-nav {
-  justify-content: start;
-  align-items: center;
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translate(-50%, 10px);
-  display: flex;
-  flex-direction: row;
-}
-nav img {
-  height: 70px;
-  cursor: pointer;
-}
-nav:hover img {
-  animation: warrenBouncing 1s ease forwards;
-  animation-direction: alternate;
-}
-nav span {
-  color: #fff;
-  font-size: 3rem;
-  text-align: center;
-  visibility: visible;
-  position: absolute;
-  z-index: -1;
-  opacity: 0;
-  transform: translateX(-50px);
-  font-weight: 600;
-}
-nav:hover span {
-  animation: warrenTextAppear 1s ease-out forwards 900ms;
-  animation-direction: alternate;
-}
-@keyframes warrenTextAppear {
-  to { opacity: 1; }
-}
-@keyframes warrenBouncing {
-  0%, 20%, 60% {transform: translateY(0);}
-
-  40%   { transform: translateY(-10px); }
-  80%   { transform: translateY(-5px); }
-  100%  { transform: translate(-125px, 0); }
 }
