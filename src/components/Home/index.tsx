@@ -11,12 +11,15 @@ interface HomeProps {
   transactions: TransactionType[] | undefined
 }
 
-export const Home: React.FC< HomeProps > = ({ transactions }) => {
+export interface Inputchange {
+  description: string 
+  status: string 
+}
+
+export const Home: React.FC<HomeProps> = ({ transactions }) => {
   const [isOpen, setOpen] = useState<boolean>(false);
   const [selectedTransaction, setSelectedTransaction] = useState<TransactionType | undefined>(undefined)
-  const [tableFilter, setTableFilter] = useState<Func<TransactionType, boolean> | undefined>(undefined)
-  const [descriptionFilter, setDescriptionFilter] = useState<Func<TransactionType, boolean>>()
-  const [statusFilter, setStatusFilter] = useState<Func<TransactionType, boolean>>()
+  const [inputChange, setInputChange] = useState<TransactionType>({ description: '', status: '' })
 
   const openModal = (transaction: TransactionType) => {
     if (transactions) {
@@ -25,34 +28,10 @@ export const Home: React.FC< HomeProps > = ({ transactions }) => {
     }
   }
 
-  function buildStatusFilter(status: string): void {
-    console.log('Home', status)
-    if (!status) return
-
-    setStatusFilter((transaction: TransactionType) => transaction.status === status)
-    builderFilter()
-  }
-
-  function buildInputFilter(description: string): void {
-    if (!description) return 
-    
-    setDescriptionFilter((transaction: TransactionType) => transaction.description === description)
-    builderFilter()
-  }
-
-  function builderFilter() {
-    if (descriptionFilter) {
-        setTableFilter(descriptionFilter)
-    }
-    if (statusFilter) {
-        setTableFilter(() => tableFilter && statusFilter)
-    }
-  }
-
   return (
     <StyledMain>
-      <Filter onInputChange={buildInputFilter} onStatusSelect={buildStatusFilter}/>
-      <Table transactions={transactions!} onClickRow={openModal} filter={tableFilter} />
+      <Filter inputChange={inputChange} setInputChange={setInputChange} />
+      <Table inputChange={inputChange} transactions={transactions!} onClickRow={openModal} />
       <Modal
         setOpen={setOpen}
         transaction={selectedTransaction!}

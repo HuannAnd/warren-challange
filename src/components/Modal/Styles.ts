@@ -1,4 +1,5 @@
 import styled, {keyframes} from "styled-components";
+import closeIcon from '../../assets/close-icon.svg'
 
 export const Background = styled.div`
     position: absolute;
@@ -14,10 +15,10 @@ export const Background = styled.div`
 `
 const openingModal = keyframes`
     0% {
-        height: 400px;
+        height: 554px;
     }
     100% {
-        height: 500px;
+        height: 580px;
     }
 `
 
@@ -39,7 +40,8 @@ export const H1 = styled.h1`
     letter-spacing: 4px;
     text-transform: uppercase;
     color: #e8175d;
-    font-weight: 600;
+    font-weight: 800;
+    font-size: 2.4rem;
     margin-bottom: 50px;
 `
 export const CloseIcon = styled.section`
@@ -53,7 +55,7 @@ export const CloseIcon = styled.section`
     scale: 0.7;
     /* background-color: #fff; */
     cursor: pointer;
-    background: url(../../assets/close-icon.svg);
+    background: url(${closeIcon});
 `
 
 const statusPainelAppear = keyframes`
@@ -97,6 +99,8 @@ export const Transference = styled.section`
 
 `
 export const H2 = styled.section`
+    font-weight: 600;
+    font-size: 1.3rem;
 
 `
 // export const TSpan = styled.section`

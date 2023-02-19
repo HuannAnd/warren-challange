@@ -13,53 +13,49 @@ import { TransactionType } from './Types/TransactionTypes'
 
 export const LoadingContext = createContext(true)
 
-function App() {
-  const selectRef = useRef<HTMLSelectElement | undefined>(undefined);
-  const [transactions, setTransactions] = useState<TransactionType[] | undefined>(undefined);
-  const [descriptionFilter, setDescriptionFilter] = useState<string | undefined>(undefined);
-  const [selectFilter, setSelectFilter] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(true)
-  const [start, setStart] = useState< boolean >(false);
 
-  // 'https://my-json-server.typicode.com/HuannAND/database-json/db'
+function App() {
+  const [transactions, setTransactions] = useState<TransactionType[] | undefined>(undefined);
+  const [loading, setLoading] = useState<boolean>(true)
+  const [start, setStart] = useState<string>('false');
 
   useEffect(() => {
     setLoading(true)
     axios.get('https://my-json-server.typicode.com/HuannAND/database-json/db')
-      .then(function(response){
+      .then((response) => {
         console.log(response)
+        setTransactions(response.data.transactions)
+
       })
-      .catch(function(error){
-        console.log(error)
-      })
-      .finally(() =>
-        {
-          setStart(true)
-          setTimeout(() => {
+      .catch((error) => console.log(error))
+      .finally(() => {
+        setStart('true')
+        
+        setTimeout(() => {
           console.log('i spent here')
           return setLoading(false)
+
         }, 4000)
-        }
+      }
 
       )
   }, [])
 
-
-  return ( 
+  return (
     <>
       <GlobalStyles />
-        {
-          loading ? (
-            <Loading loading={loading} start={start}/>
-          ) : (
-            <>
-              <Nav />
-              <Home transactions={transactions}/>
-            </>
-          )
-        }
+      {
+        loading ? (
+          <Loading loading={loading} start={start.toString()} />
+        ) : (
+          <>
+            <Nav />
+            <Home transactions={transactions} />
+          </>
+        )
+      }
     </>
-  
+
   )
 
 }

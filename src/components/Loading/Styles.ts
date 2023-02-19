@@ -57,7 +57,7 @@ export const LoadingStyled = styled.div`
 
 interface PropsSpan {
     index: number,
-    start: boolean
+    start: string
 }
 
 const loading: Keyframes = keyframes`
@@ -76,7 +76,7 @@ export const BarsLoading = styled.span<Pick < PropsSpan, 'index' | 'start'  > >`
     animation: ${loading} 1.5s linear infinite;
     animation-delay: calc(0.3s * ${props => props.index});
     animation-fill-mode: backwards;
-    animation-play-state: ${props => props.start ? 'running' : 'paused'};
+    animation-play-state: ${props => props.start === 'true' ? 'running' : 'paused'};
     z-index: 1;
 `
 

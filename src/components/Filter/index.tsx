@@ -1,40 +1,33 @@
 import React, { useState } from 'react';
 import { TransactionType } from '../../Types/TransactionTypes';
 import './FilterTransaction.css'
+import { Inputchange } from '../Home';
+interface FilterProps{
+    setInputChange: Func<TransactionType, void>
+    inputChange: TransactionType
 
-interface Filter {
-    onInputChange: Func<FilterObject, void>
-    
 }
 
-interface FilterObject {
-    filterDescritption: string | boolean
-    filterStatus: string | boolean
-}
-
-const Filter = ({ onInputChange }: Filter) => {
-    const [inputData, setInputData] = useState< FilterObject >({ filterDescritption: true, filterStatus: true })
-
-    // transactions.filter(transaction => handleFilter(transaction))
+const Filter: React.FC< FilterProps >  = ({ setInputChange , inputChange }) => {
+    const [copyInputChange, setCopyInputChange] = useState< TransactionType >(inputChange)
 
     return (
         <div className="container-seacher">
             <div>
                 <input
                     type="text"
-                    value=''
                     placeholder='Search by description of transaction'
                     onChange={
-                        (description) => setInputData(
-                            { ...inputData, filterDescritption: description.target.value }
+                        (description) => setCopyInputChange(
+                            { ...copyInputChange, description: description.target.value }
                         )}
                 />
-                <button onClick={() => onInputChange(inputData)} />
+                <button onClick={() => setInputChange(copyInputChange)} />
             </div>
             <select className="status-filter" onChange={
-                        (status) => setInputData(
-                            { ...inputData, filterStatus: status.target.value }
-                        )}
+                (status) => setCopyInputChange(
+                    { ...copyInputChange, status: status.target.value }
+                )}
             >
                 <option value='' ></option>
                 <option value='created'>created</option>

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import * as StyledTable from './Styles'
 import TableDataRow from '../TableDataRow'
 import { TransactionType } from '../../Types/TransactionTypes'
+import { Inputchange } from '../Home'
 
 // function name() {
 //     Table({
@@ -28,18 +29,30 @@ import { TransactionType } from '../../Types/TransactionTypes'
 type TableProps = {
     transactions: TransactionType[]
     onClickRow: Func<TransactionType, void>
-    filter?: Func<TransactionType, boolean>
+    inputChange: TransactionType
 }
 
-const Table = ({ transactions, onClickRow, filter }: TableProps) => {
-    const [internalTransactions, setinternalTransactions] = useState<TransactionType[]>(transactions ?? []);
+const Table: React.FC< TableProps > = ({ transactions , onClickRow, inputChange }) => {
 
-    const filterTransactions = (): TransactionType[] | void => {
-        // console.log('Table', internalTransactions, filter)
-        if (!filter) return internalTransactions
+    function handleAllFilters(transaction: TransactionType): boolean {
+        let newfilter = true;
+        for (const key in inputChange) {
+            if(!inputChange[key as keyof typeof inputChange] || inputChange[key as keyof typeof inputChange] === "") {
+                newfilter &&= true
+                continue;
+            };
+            if(key === 'description') {
+                transaction.description?.includes(inputChange.description!) 
+                ? newfilter &&= transaction.description?.includes(inputChange.description!)
+                : newfilter &&= false
+                continue;
+            }
+            console.log(key)
+            newfilter &&= transaction[key as keyof TransactionType] === inputChange[key as keyof typeof inputChange]
 
-        const filteredTransactions = internalTransactions.filter(filter)
-        return setinternalTransactions(filteredTransactions)
+        }
+        return newfilter
+        
     }
 
     return (
@@ -54,15 +67,16 @@ const Table = ({ transactions, onClickRow, filter }: TableProps) => {
             </StyledTable.THead>
             <StyledTable.TBody>
                 {
-                    filterTransactions()!.map(transaction => {
-                        return (
-                            <TableDataRow
-                                onClickRow={onClickRow}
-                                key={transaction.id}
-                                transaction={transaction}
-                            />
+                    transactions.map((transaction: TransactionType) => handleAllFilters(transaction) ? (
+                        <TableDataRow 
+                            onClickRow={onClickRow}
+                            transaction={transaction}
+                            key={transaction.id}
+                        /> ) : (
+                            null
                         )
-                    })
+
+                    )
                 }
             </StyledTable.TBody>
         </StyledTable.Table>
