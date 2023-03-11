@@ -1,42 +1,100 @@
-import axios from 'axios'
-import Modal from '../Modal/Modal';
 import Table from '../Table';
 import { StyledMain } from './Styles'
-import FilterTransaction from '../Filter';
-import { useEffect, useState } from 'react'
+import { createContext, SetStateAction, useState } from 'react'
 import { TransactionType } from '../../Types/TransactionTypes'
 import Filter from '../Filter';
+import Input from '../Input';
+import { FlattenSimpleInterpolation , css} from 'styled-components';
 
 interface HomeProps {
   transactions: TransactionType[] | undefined
-}
+  setPopupIsOpen: Function
 
+}
 export interface Inputchange {
-  description: string 
-  status: string 
+  description: string
+  status: string
 }
 
-export const Home: React.FC<HomeProps> = ({ transactions }) => {
-  const [isOpen, setOpen] = useState<boolean>(false);
-  const [selectedTransaction, setSelectedTransaction] = useState<TransactionType | undefined>(undefined)
-  const [inputChange, setInputChange] = useState<TransactionType>({ description: '', status: '' })
+export interface ContextProps {
+  inputChange: TransactionType
+  setInputChange: React.Dispatch<React.SetStateAction<TransactionType>>
+  setPopupIsOpen: Function
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>
+  isOpen: boolean
+  transactions: TransactionType[] | undefined
+  onClickRow: (transaction: TransactionType) => void
+  openSidebarFilters: boolean 
+  setOpenSidebarFilters: React.Dispatch<React.SetStateAction< boolean >>
+  currentFilterStyles: FilterStyles ,
+  setCurrentFilterStyles: React.Dispatch<React.SetStateAction<FilterStyles>>
+  amountFunction: ((transaction: TransactionType) => boolean) | boolean
+  setAmountFunction: React.Dispatch<React.SetStateAction<((transaction: TransactionType) => boolean) | boolean>>
+  amountValue:  number | null
+  setAmountValue: React.Dispatch<SetStateAction<number | null>>
+}
 
-  const openModal = (transaction: TransactionType) => {
+export interface FilterStyles {
+  containerStyles: FlattenSimpleInterpolation
+  iconStyles: FlattenSimpleInterpolation
+}
+
+export const GlobalPropsContext = createContext<Partial<ContextProps>>({});
+
+export const Home: React.FC<HomeProps> = ({ transactions, setPopupIsOpen }) => {
+  const [isOpen, setOpen] = useState<boolean>(false);
+  const [inputChange, setInputChange] = useState<TransactionType>({ description: '', status: '' })
+  const [currentFilterStyles, setCurrentFilterStyles] = useState< FilterStyles >(
+    {
+      containerStyles: css`
+          border: none;   
+          
+
+      `,
+      iconStyles: css`
+          background-size: 25px;
+          background-image: url(/src/assets/search-icon.svg);
+          
+      `
+    }
+  );
+  
+  const [openSidebarFilters, setOpenSidebarFilters] = useState< boolean >(true);
+  const [amountFunction, setAmountFunction] = useState<((transaction: TransactionType) => boolean) | boolean>(true);
+  const [amountValue, setAmountValue] = useState<number | null>(null);
+
+  const openModal = () => {
     if (transactions) {
-      setSelectedTransaction(transaction)
       setOpen(true)
     }
   }
 
   return (
     <StyledMain>
-      <Filter inputChange={inputChange} setInputChange={setInputChange} />
-      <Table inputChange={inputChange} transactions={transactions!} onClickRow={openModal} />
-      <Modal
-        setOpen={setOpen}
-        transaction={selectedTransaction!}
-        isOpen={isOpen}
-      />
+      <GlobalPropsContext.Provider
+        value={
+          {
+            inputChange: inputChange,
+            setInputChange: setInputChange,
+            setPopupIsOpen: setPopupIsOpen,
+            transactions: transactions,
+            onClickRow: openModal,
+            isOpen: isOpen,
+            setOpen: setOpen,
+            openSidebarFilters: openSidebarFilters,
+            setOpenSidebarFilters: setOpenSidebarFilters,
+            currentFilterStyles: currentFilterStyles,
+            setCurrentFilterStyles: setCurrentFilterStyles,
+            amountFunction: amountFunction,
+            setAmountFunction: setAmountFunction,
+            amountValue: amountValue,
+            setAmountValue: setAmountValue
+          }
+        }
+      >
+        <Filter />
+        <Table />
+      </GlobalPropsContext.Provider>
     </StyledMain>
   );
 }

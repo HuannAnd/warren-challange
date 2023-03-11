@@ -18,50 +18,49 @@
   margin-bottom: 20px;
   gap: 10px;
 }
-.container-seacher div {
+/* .container-seacher .description-filter {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   height: auto;
-  
-  /* padding: 10px; */
+  border: 2px solid #e8175d;
+  border-radius: 10px;
+
 }
-.container-seacher div input,
-.container-seacher div button {
+.container-seacher .description-filter input,
+.container-seacher .description-filter button {
   height: 32px;
   box-sizing: content-box;
   padding: 10px;
   box-shadow: 0 0 6px #111;
   border: none;
 }
-.container-seacher div input:focus,
-.container-seacher div button:focus {
+.container-seacher .description-filter input:focus,
+.container-seacher .description-filter button:focus {
   outline: none;
 }
-.container-seacher div input {
-  /* padding: 10px 15px; */
+.container-seacher .description-filter input {
   background: #222;
   border: none;
   border-bottom-left-radius: 10px;
   border-top-left-radius: 10px;
   color: #fff;
   width: 300px;
-  color: #fff;
   font-size: 1rem;
   font-family: "Poppins", sans-serif;
 }
-.container-seacher div input::placeholder {
+.container-seacher .description-filter input::placeholder {
   color: #fff;
   font-size: 1rem;
   font-family: "Poppins", sans-serif;
   opacity: 0.3;
 }
-.container-seacher div button {
+.container-seacher .description-filter button {
   position: relative;
   background-color: #222;
-  background-image: url(../../assets/search-icon.svg);
-  background-size: 25px;
+  background-image: url(../../assets/warn-icon.svg);
+  background-size: 5px;
   background-position: center;
   background-repeat: no-repeat;
   border-top-right-radius: 10px;
@@ -71,10 +70,10 @@
   cursor: pointer;
   transition: 1s ease;
 }
-.container-seacher div button:hover {
+.container-seacher .description-filter button:hover {
   filter: invert(1);
 }
-.container-seacher div button img {
+.container-seacher .description-filter button img {
   position: relative;
   top: 0;
   left: 0;
@@ -100,8 +99,24 @@
 .container-seacher select option {
   color: #fff;
   font-family: "Poppins", sans-serif;
+  padding: 20px;
   width: 20px;
   height: 200px;
   border: none;
   cursor: pointer;
+} */
+.container-seacher .description-filter button {
+  position: relative;
+  background-color: #222;
+  background-image: url(../../assets/warn-icon.svg);
+  background-size: 5px;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  width: 32px;
+  box-sizing: content-box;
+  cursor: pointer;
+  transition: 1s ease;
 }
+

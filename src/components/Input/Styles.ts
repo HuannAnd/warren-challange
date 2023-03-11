@@ -1,15 +1,22 @@
 import styled from "styled-components";
+import { FilterStyles } from "../Filter";
 
-const Container = styled.div`
+
+
+interface CurrentStylesProps {
+    currentStyles: FilterStyles
+}
+
+const Container = styled.div<Pick<CurrentStylesProps , 'currentStyles'>>`
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: start;
-    height: 52px;
-    width: auto;
-    gap: 20px;   
-`
-
+    justify-content: center;
+    height: auto;
+    border-radius: 10px;
+    
+    ${props => props.currentStyles.containerStyles}
+    `
 const Input = styled.input`
     height: 32px;
     box-sizing: content-box;
@@ -30,26 +37,22 @@ const Input = styled.input`
 &:focus {
     outline: none;
 }
-
 &::placeholder {
     color: #fff;
     font-size: 1rem;
     font-family: "Poppins", sans-serif;
     opacity: 0.3;
 }
-
 `
-const Button = styled.button`
+
+const Button = styled.button<Pick<CurrentStylesProps , 'currentStyles'>>`
+    position: relative;
     height: 32px;
     box-sizing: content-box;
     padding: 10px;
     box-shadow: 0 0 6px #111;
     border: none;
-
-    position: relative;
     background-color: #222;
-    background-image: url(../../assets/search-icon.svg);
-    background-size: 25px;
     background-position: center;
     background-repeat: no-repeat;
     border-top-right-radius: 10px;
@@ -59,6 +62,8 @@ const Button = styled.button`
     cursor: pointer;
     transition: 1s ease;
 
+    ${props => props.currentStyles.iconStyles}
+
 &:hover {
     filter: invert(1);
 }
@@ -67,3 +72,5 @@ const Button = styled.button`
     outline: none;
 }
 `
+
+export {Container , Input , Button}

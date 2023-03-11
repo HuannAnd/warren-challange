@@ -6,7 +6,7 @@ interface PropsCentralize {
 
 export const Centralize = styled.section<Pick < PropsCentralize , 'loadingOpen' >>`
     position: absolute;
-    visibility: ${props => props.loadingOpen? 'visible' : 'hidden'};
+    visibility: ${props => props.loadingOpen? 'visible' : 'hidden'};    
     top: 50%; left: 50%;
     z-index: 999;
     transform: translate(-50%, -50%);
@@ -14,17 +14,17 @@ export const Centralize = styled.section<Pick < PropsCentralize , 'loadingOpen' 
     flex-direction: row;
     gap: 12px;
 
-    &::before
-    {
-        position: absolute;
-        top: 50%; left: 50%; right: 0; bottom: 0;
-        transform-origin: top left;
-        transform: translate(-50%, -50%);
-        content: '';
-        background: rgba(0, 0, 0, .6);
-        height: 100vh;
-        width: 100vw;
-    }
+&::before
+{
+    position: absolute;
+    top: 50%; left: 50%; right: 0; bottom: 0;
+    transform-origin: top left;
+    transform: translate(-50%, -50%);
+    content: '';
+    background: rgba(0, 0, 0, .6);
+    height: 100vh;
+    width: 100vw;
+}
 
 `
 

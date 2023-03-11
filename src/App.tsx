@@ -1,15 +1,12 @@
-import { createContext, useEffect, useRef, useState } from 'react'
-import axios from 'axios'
-// import './App.css'
-import Modal from './components/Modal/Modal'
-import FilterTransaction from './components/Filter'
+import { createContext, useEffect, useState } from 'react'
 import Loading from './components/Loading'
-import styled from 'styled-components'
 import Nav from './components/Nav'
 import Home from './components/Home'
-
 import { GlobalStyles } from './Global'
 import { TransactionType } from './Types/TransactionTypes'
+import { DocumentData, getDoc, getDocs, getFirestore } from 'firebase/firestore'
+import { literalCollectionDatabase } from './firebase-config'
+import PopUp from './components/Popup'
 
 export const LoadingContext = createContext(true)
 
@@ -17,29 +14,33 @@ export const LoadingContext = createContext(true)
 function App() {
   const [transactions, setTransactions] = useState<TransactionType[] | undefined>(undefined);
   const [loading, setLoading] = useState<boolean>(true)
-  const [start, setStart] = useState<string>('false');
+  const [start, setStart] = useState<boolean>(true);
+  const [popupIsOpen, setPopupIsOpen] = useState< boolean >(false);
 
   useEffect(() => {
-    setLoading(true)
-    axios.get('https://my-json-server.typicode.com/HuannAND/database-json/db')
-      .then((response) => {
-        console.log(response)
-        setTransactions(response.data.transactions)
-
-      })
-      .catch((error) => console.log(error))
-      .finally(() => {
-        setStart('true')
+    const getTransaction = async () => {
+      const data = await getDocs(literalCollectionDatabase)
+      
+      const mappingData = data.docs.map((doc: DocumentData) => ({ ...doc.data() , id: doc.id }))
+      
+      setTransactions(mappingData)
+    }
+    window.onload = () => {
+      setLoading(true)
+    }    
+    getTransaction()
+    .finally(() => {
+      setTimeout(() => {  
+        setLoading(false)
         
-        setTimeout(() => {
-          console.log('i spent here')
-          return setLoading(false)
+      }, 3000)
+    }
 
-        }, 4000)
-      }
-
-      )
+    )
+    
   }, [])
+
+  console.log(transactions)
 
   return (
     <>
@@ -49,8 +50,9 @@ function App() {
           <Loading loading={loading} start={start.toString()} />
         ) : (
           <>
+            <PopUp setPopupIsOpen={setPopupIsOpen} popupIsOpen={popupIsOpen}/>
             <Nav />
-            <Home transactions={transactions} />
+            <Home setPopupIsOpen={setPopupIsOpen} transactions={transactions} />
           </>
         )
       }
