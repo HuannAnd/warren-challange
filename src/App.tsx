@@ -1,61 +1,25 @@
-import { createContext, useEffect, useState } from 'react'
-import Loading from './components/Loading'
-import Nav from './components/Nav'
-import Home from './components/Home'
-import { GlobalStyles } from './Global'
-import { TransactionType } from './Types/TransactionTypes'
-import { DocumentData, getDoc, getDocs, getFirestore } from 'firebase/firestore'
-import { literalCollectionDatabase } from './firebase-config'
-import PopUp from './components/Popup'
+import { useState } from 'react'
 
-export const LoadingContext = createContext(true)
+import { Loading, Header, Home, PopUp, Table } from '@/components/index'
+
+import { GlobalStyles } from './Global'
+ 
+import { useLoading } from '@/hooks/useLoading'
+import { useTransactions } from '@/hooks/useTransactions'
 
 
 function App() {
-  const [transactions, setTransactions] = useState<TransactionType[] | undefined>(undefined);
-  const [loading, setLoading] = useState<boolean>(true)
-  const [start, setStart] = useState<boolean>(true);
-  const [popupIsOpen, setPopupIsOpen] = useState< boolean >(false);
+  const { transactions } = useTransactions();
+  const { loading } = useLoading();
+  const [popupIsOpen, setPopupIsOpen] = useState<boolean>(false);
 
-  useEffect(() => {
-    const getTransaction = async () => {
-      const data = await getDocs(literalCollectionDatabase)
-      
-      const mappingData = data.docs.map((doc: DocumentData) => ({ ...doc.data() , id: doc.id }))
-      
-      setTransactions(mappingData)
-    }
-    window.onload = () => {
-      setLoading(true)
-    }    
-    getTransaction()
-    .finally(() => {
-      setTimeout(() => {  
-        setLoading(false)
-        
-      }, 3000)
-    }
-
-    )
-    
-  }, [])
-
-  console.log(transactions)
 
   return (
     <>
       <GlobalStyles />
-      {
-        loading ? (
-          <Loading loading={loading} start={start.toString()} />
-        ) : (
-          <>
-            <PopUp setPopupIsOpen={setPopupIsOpen} popupIsOpen={popupIsOpen}/>
-            <Nav />
-            <Home setPopupIsOpen={setPopupIsOpen} transactions={transactions} />
-          </>
-        )
-      }
+      {loading ? (
+        <Loading loading={loading} />
+      ) : <Home />
     </>
 
   )

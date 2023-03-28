@@ -1,23 +1,25 @@
-import React from 'react'
+import React from 'react';
+
 import * as C from "./Styles";
 
+
 export interface LoadingProps {
-    loading: boolean
-    start: string
+  loading: boolean
+
 }
 
-const Loading: React.FC< LoadingProps > = ({ loading , start }) => {
-    return (
-        <C.Centralize loadingOpen={loading}>
-        <C.LoadingStyled>
-            <C.BarsLoading index={1} start={start.toString()}/>    
-            <C.BarsLoading index={2} start={start.toString()}/>    
-            <C.BarsLoading index={3} start={start.toString()}/>    
-        </C.LoadingStyled>
-        <C.Paragraph>Warren</C.Paragraph>
+const Loading= ({ loading }: LoadingProps) => {
+  return (
+    <C.Centralize loadingOpen={loading}>
+      <C.LoadingStyled>
+        <C.BarsLoading index={1} loading={loading} />
+        <C.BarsLoading index={2} loading={loading} />
+        <C.BarsLoading index={3} loading={loading} />
+      </C.LoadingStyled>
+      <C.Paragraph>Warren</C.Paragraph>
     </C.Centralize>
-        
-    );
+
+  );
 }
- 
+
 export default Loading;

@@ -5,9 +5,11 @@ const Container = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: start;
+    
     height: 52px;
     width: auto;
     gap: 20px;   
+
 `
 
 const Input = styled.input`
