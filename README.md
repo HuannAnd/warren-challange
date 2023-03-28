@@ -15,21 +15,21 @@ Segue abaixo alguns exemplos de telas para uma base, mas sinta-se à vontade par
 
 ## Lista de transações
 
- ![Trade Table ilustrator](src/assets/trade-table.png)
+ ![Trade Table ilustrator](images/trade-table.png)
 
 # Modais
 
 ## Modal de depósito
 
-![Trade Table ilustrator](src/assets/deposite-modal.png)
+![Trade Table ilustrator](images/deposite-modal.png)
 
 ## Modal de resgate
 
-![Trade Table ilustrator](src/assets/reedem-modal.png)
+![Trade Table ilustrator](images/reedem-modal.png)
 
 ## Modal de Movimentação interna
 
-![Trade Table ilustrator](src/assets/internal-trades.png)
+![Trade Table ilustrator](images/internal-trades.png)
 
 # Tecnologias
 
