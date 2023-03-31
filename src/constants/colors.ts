@@ -10,7 +10,7 @@ const colors = {
 
   warrenRed: '#e02b57',
 
-  background: 'background: linear-gradient(135deg, #E02B57 0%, #222222 93.75%);'
+  background: 'linear-gradient(135deg, #E02B57 0%, #222222 93.75%);'
 
   
 }

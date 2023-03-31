@@ -1,6 +1,6 @@
 import styled, {keyframes} from "styled-components";
 
-import closeIcon from '@assets/close-icon.svg'
+import closeIcon from '@/assets/close-icon.svg'
 
 
 const size = {

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { options } from '@/constants/statusOptions';
 
@@ -16,17 +16,12 @@ import { useAlert } from '@/hooks/useAlerts';
 
 
 const Filter = () => {
-  const { arbitraryFilter } = useFilter();
-  const { alertState } = useAlert()
-
-  
+  const { alertState } = useAlert();
 
   return (
     <div className="container-seacher">
       <Input alertState={alertState} />
       <Dropdown options={options} placeHolder="status" />
-      <FilterMobile />
-      <SidebarFilters />
     </div>
   );
 }

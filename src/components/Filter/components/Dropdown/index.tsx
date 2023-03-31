@@ -1,12 +1,8 @@
-import { useEffect, useState } from "react";
-
-import TransactionType from "@/utils/TransactionType";
 import Option from '@/utils/Option';
 
-import { useDropdown } from "@/hooks/useDropdown";
+import { useDropdownLogic } from "@/hooks/useDropdownLogic";
 
 import * as StylesDropdown from './Styles';
-import { useFilter } from "@/hooks/useFilter";
 
 
 type DropdownProps = {
@@ -16,46 +12,30 @@ type DropdownProps = {
 }
 
 const Dropdown = ({ placeHolder, options }: DropdownProps) => {
-  const {
-    isSelected,
-    showMenu,
-    setShowMenu,
-    onItemClick,
-    handleDropdownClick,
-    getDisplay
-  } = useDropdown(placeHolder);
-
-  useEffect(() => {
-    const handler = () => setShowMenu(false)
-
-    window.addEventListener('click', handler)
-
-    return () => {
-      window.removeEventListener('click', handler)
-    }
-  })
+  const [
+    { showMenu, text },
+    { itemClick, isSelected, dropdownClick }
+  ] = useDropdownLogic(placeHolder);
 
   return (
-    <StylesDropdown.Container onClick={handleDropdownClick}>
+    <StylesDropdown.Container onClick={dropdownClick}>
       <StylesDropdown.Input >
-
-        <StylesDropdown.ValueOn>{getDisplay()}</StylesDropdown.ValueOn>
-
+        <StylesDropdown.ValueOn>{text()}</StylesDropdown.ValueOn>
         {showMenu && (
           <StylesDropdown.Menu>
-            {options.map((option) =>
-              <StylesDropdown.Item
-                onClick={() => onItemClick(option)}
-                key={option.label}
-                isSelected={isSelected(option)}
-              >{option.label}</StylesDropdown.Item>
+            {options.map(
+              (option) =>
+                <StylesDropdown.Item
+                  onClick={() => itemClick(option)}
+                  key={option.label}
+                  isSelected={isSelected(option)}
+                >{option.label}</StylesDropdown.Item>
             )}
           </StylesDropdown.Menu>
         )}
       </StylesDropdown.Input>
 
       <StylesDropdown.Icon />
-
     </StylesDropdown.Container>
   );
 }

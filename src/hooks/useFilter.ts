@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import {Dispatch, SetStateAction, useState } from 'react';
 
 import TransactionType from 'src/utils/TransactionType';
+
+import { useAmount } from '@/hooks/useAmount';
 
 
 type FilterType = {
@@ -12,36 +14,54 @@ type FilterType = {
   },
 }
 
+type StatesType = {
+  preview: FilterType,
+  filter: FilterType
+}
+
+type HandlersType = {
+  apply: Dispatch<SetStateAction<FilterType>>,
+  choose: Dispatch<SetStateAction<FilterType>>,
+  checker: (transaction: TransactionType) => boolean,
+}
+
 export function useFilter() {
   const [filter, setfilter] = useState<FilterType>({} as FilterType);
   const [arbitraryFilter, setArbitraryFilter] = useState<FilterType>({} as FilterType);
 
+  const [amount, amountFunction] = useAmount();
 
   function handleAllFilters(transaction: TransactionType) {
-    if (filter!.title && !transaction.title?.includes(filter!.title)) {
+    if (filter.title && !transaction.title?.includes(filter!.title)) {
       return false
 
     }
-    if (filter!.status && transaction.status !== filter!.status) {
+    if (filter.status && transaction.status !== filter.status) {
       return false
 
     }
-    if (filter!.amount && transaction.amount) {
-      return false
+    // if (filter.amount && amountFunction(transaction)) {
+    //   return false
 
-    }
+    // }
 
     return true
 
   }
 
-  return {
-    handleAllFilters,
-    filter,
-    setfilter,
-    setArbitraryFilter,
-    arbitraryFilter,
+  const states: StatesType = {
+    preview: arbitraryFilter,
+    filter: filter
   }
 
+  const handlers: HandlersType= {
+    apply: setfilter,
+    choose: setArbitraryFilter,
+    checker: handleAllFilters
+
+  }
+
+  const result: [StatesType, HandlersType] = [states, handlers]
+  return result
 
 }

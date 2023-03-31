@@ -1,12 +1,12 @@
-import * as StyledNav from './styles'
+import * as HeaderS from './styles'
 
-const Nav = () => {
+const Header = () => {
   return (
-    <StyledNav.NavStyled>
-      <StyledNav.ImageStyled src='src\assets\warren-logo.png' />
-      <StyledNav.SpanStyled>Warren</StyledNav.SpanStyled>
-    </StyledNav.NavStyled>
+    <HeaderS.NavStyled>
+      <HeaderS.ImageStyled src='src\assets\warren-logo.png' />
+      <HeaderS.SpanStyled>Warren</HeaderS.SpanStyled>
+    </HeaderS.NavStyled>
   );
 }
 
-export default Nav;
+export default Header;

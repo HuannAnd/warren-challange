@@ -117,5 +117,3 @@ GET: <https://warren-transactions-api.herokuapp.com/api/transactions/:id>
 }
 
 ``` 
-
-![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=anuraghazra&show_icons=true&theme=transparent)

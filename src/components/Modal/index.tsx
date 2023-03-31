@@ -1,51 +1,48 @@
-import React, { useContext } from 'react'
-// import './Modal.css'
+import { useModal } from '@/hooks/useModal'
+
 import TransactionType from 'src/utils/TransactionType'
 
-import * as ModalStyles from './styles'
+import * as ModalS from './styles'
 
 
-export type ModalProps = {
-  transaction: TransactionType
-}
-
-const Modal = ({ transaction }: ModalProps) => {
-  const { handleModalRows } = useContext(ModalContext)
+const Modal = ({ transaction }: { transaction: TransactionType }) => {
+  const [, { handler }] = useModal()
 
   return (
-    <ModalStyles.Background>
-      <ModalStyles.Modal>
-        <ModalStyles.H1>{transaction.title}</ModalStyles.H1>
-        <ModalStyles.CloseIcon onClick={() => handleModalRows!(transaction)} />
+    <ModalS.Background>
+      <ModalS.Modal>
+        <ModalS.H1>{transaction.title}</ModalS.H1>
 
-        <ModalStyles.StatusPainel status={transaction.status!}>
-          <ModalStyles.Span
+        <ModalS.CloseIcon onClick={() => handler(transaction)} />
+
+        <ModalS.StatusPainel status={transaction.status!}>
+          <ModalS.Span
             opacityIsPointFive={transaction.status === 'created'}
-          ><ModalStyles.H3>Criado</ModalStyles.H3>
-          </ModalStyles.Span>
-          <ModalStyles.Span
+          ><ModalS.H3>Criado</ModalS.H3>
+          </ModalS.Span>
+          <ModalS.Span
             opacityIsPointFive={transaction.status === 'processing'}
-          ><ModalStyles.H3>Em processo</ModalStyles.H3>
-          </ModalStyles.Span>
-          <ModalStyles.Span
+          ><ModalS.H3>Em processo</ModalS.H3>
+          </ModalS.Span>
+          <ModalS.Span
             opacityIsPointFive={transaction.status === 'processed'}
-          ><ModalStyles.H3>Processado</ModalStyles.H3>
-          </ModalStyles.Span>
-        </ModalStyles.StatusPainel>
+          ><ModalS.H3>Processado</ModalS.H3>
+          </ModalS.Span>
+        </ModalS.StatusPainel>
 
-        <ModalStyles.Transference>
-          <ModalStyles.H2>Transferindo de</ModalStyles.H2>
-          <ModalStyles.Span>{transaction.from}</ModalStyles.Span>
-          <ModalStyles.Strong>{`R$${transaction.amount}`}</ModalStyles.Strong>
-          <ModalStyles.HR />
-          <ModalStyles.H2>Para</ModalStyles.H2>
-          <ModalStyles.Span>{transaction.to}</ModalStyles.Span>
-          <ModalStyles.Strong>{`R$${transaction.amount}`}</ModalStyles.Strong>
-          <ModalStyles.HR />
-        </ModalStyles.Transference>
+        <ModalS.Transference>
+          <ModalS.H2>Transferindo de</ModalS.H2>
+          <ModalS.Span>{transaction.from}</ModalS.Span>
+          <ModalS.Strong>{`R$${transaction.amount}`}</ModalS.Strong>
+          <ModalS.HR />
+          <ModalS.H2>Para</ModalS.H2>
+          <ModalS.Span>{transaction.to}</ModalS.Span>
+          <ModalS.Strong>{`R$${transaction.amount}`}</ModalS.Strong>
+          <ModalS.HR />
+        </ModalS.Transference>
 
-      </ModalStyles.Modal>
-    </ModalStyles.Background>
+      </ModalS.Modal>
+    </ModalS.Background>
   );
 }
 

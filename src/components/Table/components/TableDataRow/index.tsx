@@ -5,35 +5,28 @@ import TransactionType from "src/utils/TransactionType";
 import "./TableDataRow.css"
 import * as C from './Styles'
 
-import Modal from "../../../Modal";
+import { Modal } from "@/components";
+import { useModal } from "@/hooks/useModal";
 
-import { GlobalPropsContext } from "../../../Home";
 
-import { ModalContext } from "../../..";
-
-interface TableDataRowProps {
-    transaction: TransactionType
+type TableDataRowProps = {
+  transaction: TransactionType
 }
 
-const TableDataRow: React.FC<TableDataRowProps> = ({ transaction }) => {
-    const { onClickRow, isOpen, setOpen } = useContext(GlobalPropsContext)
-    const { selectedModals, handleModalRows } = useContext(ModalContext)
+const TableDataRow= ({ transaction }: TableDataRowProps) => {
+  const [{ selectedModals }, { handler }] = useModal()
 
-    return (
-        <C.TRow onClick={() => { handleModalRows!(transaction) }}>
-            <C.TData data-label="Title">{transaction.title}</C.TData>
-            <C.TData data-label="Description">{transaction.description}</C.TData>
-            <C.TData data-label="Status">{transaction.status}</C.TData>
-            <C.TData data-label="Amount">{`R$${transaction.amount}`}</C.TData>
-            {
-                selectedModals?.includes(transaction) && (
-                    <Modal
-                        transaction={transaction!}
-                    />
-                )
-            }
-        </C.TRow>
-    )
+  return (
+    <C.TRow onClick={() => handler(transaction)}>
+      <C.TData data-label="Title">{transaction.title}</C.TData>
+      <C.TData data-label="Description">{transaction.description}</C.TData>
+      <C.TData data-label="Status">{transaction.status}</C.TData>
+      <C.TData data-label="Amount">{`R$${transaction.amount}`}</C.TData>
+
+      {selectedModals?.includes(transaction) && ( <Modal transaction={transaction!} /> )}
+      
+    </C.TRow>
+  )
 }
 
 export default TableDataRow;

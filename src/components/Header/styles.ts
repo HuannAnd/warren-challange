@@ -12,7 +12,7 @@ const warrenTextTop: Keyframes = keyframes`
 	100% { transform: translateY(-100px)}
 `
 
-export const NavStyled = styled.nav`
+export const NavStyled = styled.header`
 	position: absolute;
 	display: flex;
 	flex-direction: row;

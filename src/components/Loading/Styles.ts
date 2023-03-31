@@ -1,12 +1,12 @@
 import styled, {Keyframes, keyframes} from 'styled-components'
 
 interface PropsCentralize {
-    loadingOpen: boolean
+    $loading: boolean
 }
 
-export const Centralize = styled.section<Pick < PropsCentralize , 'loadingOpen' >>`
+export const Centralize = styled.section<Pick < PropsCentralize , '$loading' >>`
     position: absolute;
-    visibility: ${props => props.loadingOpen? 'visible' : 'hidden'};    
+    visibility: ${props => props.$loading ? 'visible' : 'hidden'};    
     top: 50%; left: 50%;
     z-index: 999;
     transform: translate(-50%, -50%);
@@ -57,7 +57,7 @@ export const LoadingStyled = styled.div`
 
 interface PropsSpan {
     index: number,
-    loading: boolean
+    $loading: boolean
 }
 
 const loading: Keyframes = keyframes`
@@ -67,7 +67,7 @@ const loading: Keyframes = keyframes`
   
 `
 
-export const BarsLoading = styled.span<Pick < PropsSpan, 'index' | 'loading'  > >`
+export const BarsLoading = styled.span<Pick < PropsSpan, 'index' | '$loading'  > >`
     width: 22px;
     height: 30px;
     box-shadow: 0 0 3px #ddd, 0 0 10px #aaa, 0 0 40px #9a9a9a;
@@ -76,7 +76,7 @@ export const BarsLoading = styled.span<Pick < PropsSpan, 'index' | 'loading'  > 
     animation: ${loading} 1.5s linear infinite;
     animation-delay: calc(0.3s * ${props => props.index});
     animation-fill-mode: backwards;
-    animation-play-state: ${props => props.loading ? 'running' : 'paused'};
+    animation-play-state: ${props => props.$loading ? 'running' : 'paused'};
     z-index: 1;
 `
 

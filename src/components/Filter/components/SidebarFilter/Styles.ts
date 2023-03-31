@@ -1,6 +1,9 @@
 import styled from "styled-components";
-import backIcon from '../../assets/back-icon.svg'
-import { device } from "../../../Table/Styles";
+
+import backIcon from '@/assets/back-icon.svg'
+
+import { mediaQueries } from "@/constants/device";
+
 
 const Sidebar = styled.div`
     position: fixed;
@@ -9,7 +12,7 @@ const Sidebar = styled.div`
     transform: translateX(100%);
     opacity: 0;
 
-@media ${device.mobile} {
+@media ${mediaQueries.mobile} {
     visibility: hidden;
     position: fixed;
     transform: translateX(100%);

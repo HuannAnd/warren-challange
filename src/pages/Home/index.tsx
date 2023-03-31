@@ -1,15 +1,14 @@
-import { Table , Filter, Header} from "@/components";
+import { Table, Filter, Header } from "@/components";
 
+import * as HomeS from './styles'
 
-export function Home() {
+export default function Home() {
   return (
-    <div id="home-page">
-        <Header />
-        <main>
-          <Filter />
-          <Table />
-        </main> 
-    </div>
-  
+    <HomeS.Container>
+      <Header />
+      <Filter />
+      <Table />
+    </HomeS.Container>
+
   )
 }

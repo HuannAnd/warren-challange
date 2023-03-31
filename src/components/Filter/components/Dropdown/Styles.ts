@@ -1,23 +1,26 @@
 import styled from "styled-components";
-import icon from '../../assets/arrow-icon.svg'
-import { device } from "../../../Table/Styles";
+
+import icon from '@/assets/arrow-icon.svg'
+
+import { mediaQueries } from "@/constants/device";
 
 export const Container = styled.div`
-    width: 175px;
     position: relative;
+    width: 175px;
     height: 100%;
-    background: #222222;
-    border-radius: 14px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+
+    background: #222222;
+    border-radius: 14px;
     align-items: center;
-    padding: 10px;
+    padding: 10px;  
     cursor: pointer;
     box-shadow: 0 0 6px #111;
     z-index: 1;
 
-    @media ${device.mobile} {
+    @media ${mediaQueries.mobile} {
         z-index: 3;
         display: none;
     }

@@ -1,72 +1,46 @@
-import { useContext, useMemo, useState } from 'react';
+import { ReactNode, useState } from 'react';
 
-import * as StylesSidebarFilters from './Styles'
+import * as SideBar from './Styles'
 
-import TransactionType from '@utils/TransactionType';
+import StatusOption from './components/StatusOption/index';
 
-interface SidebarFiltersProps {
-  copyInputChange: TransactionType
-  setCopyInputChange: React.Dispatch<React.SetStateAction<TransactionType>>
-}
+import TransactionType from '@/utils/TransactionType';
+import { useFilter } from '@/hooks/useFilter';
 
-const SidebarFilters: React.FC<SidebarFiltersProps> = ({ copyInputChange, setCopyInputChange }) => {
-  const { openSidebarFilters, setOpenSidebarFilters, setInputChange, setAmountFunction, amountValue, setAmountValue } = useContext(GlobalPropsContext)
-  const [amountOption, setAmountOption] = useState<string | null>(null);
 
-  useMemo(() => {
-    if (amountOption === 'equal') {
-      setAmountFunction!((x: TransactionType) => x.amount! === amountValue!)
-    }
-    if (amountOption === 'less') {
-      setAmountFunction!((x: TransactionType) => x.amount! < amountValue!)
-    }
-    if (amountOption === 'greater') {
-      setAmountFunction!((x: TransactionType) => x.amount! > amountValue!)
-    }
+const SidebarFilters = () => {
+  const [isOpen, setisOpen] = useState(false);
 
-    setAmountFunction!(true)
+  const [{ preview }, { apply }] = useFilter()
 
-  }, [amountOption, amountValue])
+  function applySideBarFilters() {
+    apply(preview)
+    setisOpen(false)
 
-  function handleOnChange(e: React.FormEvent<HTMLInputElement>) {
-    let value = e.currentTarget.value
-    value = value.replace(/\D/g, "")
-    value = value.replace(/(\d{2})(\d*)/g, "R$ $2,$1")
-    e.currentTarget.value = value
   }
 
-  if (!openSidebarFilters) return null
+  function closeSideBar() {
+    setisOpen(false)
+  }
+
+  if (!isOpen) return null
 
   return (
-    <StylesSidebarFilters.Sidebar className={`${openSidebarFilters ? 'activated' : 'disabled'}`}>
-      <StylesSidebarFilters.Title >
-        <StylesSidebarFilters.Text >Filters</StylesSidebarFilters.Text>
-        <StylesSidebarFilters.Close onClick={() => {
-          setOpenSidebarFilters!(false); console.log(openSidebarFilters);
-        }} />
-      </StylesSidebarFilters.Title>
-      <StylesSidebarFilters.Menu>
-        <StylesSidebarFilters.StatusFilter >
-          <StylesSidebarFilters.Label>status</StylesSidebarFilters.Label>
-          <StylesSidebarFilters.StatusOption
-            className={`${copyInputChange?.status === 'created' && 'isSelected'}`}
-            onClick={() => setCopyInputChange({ ...copyInputChange, status: 'created' })}
-          >created</StylesSidebarFilters.StatusOption>
-          <StylesSidebarFilters.StatusOption
-            className={`${copyInputChange?.status === 'processing' && 'isSelected'}`}
-            onClick={() => setCopyInputChange({ ...copyInputChange, status: 'processing' })}
-          >processing</StylesSidebarFilters.StatusOption>
-          <StylesSidebarFilters.StatusOption
-            className={`${copyInputChange?.status === 'processed' && 'isSelected'}`}
-            onClick={() => setCopyInputChange({ ...copyInputChange, status: 'processed' })}
-          >processed</StylesSidebarFilters.StatusOption>
-        </StylesSidebarFilters.StatusFilter>
-        <StylesSidebarFilters.Button onClick={() => {
-          setInputChange!(copyInputChange)
-          setOpenSidebarFilters!(false)
-        }}>apply</StylesSidebarFilters.Button>
-      </StylesSidebarFilters.Menu>
-    </StylesSidebarFilters.Sidebar>
+    <SideBar.Sidebar className={`${isOpen ? 'activated' : 'disabled'}`}>
+      <SideBar.Title >
+        <SideBar.Text >Filters</SideBar.Text>
+        <SideBar.Close onClick={closeSideBar} />
+      </SideBar.Title>
+      <SideBar.Menu>
+        <SideBar.StatusFilter >
+          <SideBar.Label>status</SideBar.Label>
+          <StatusOption value='created'>created</StatusOption>
+          <StatusOption value='processing'>processing</StatusOption>
+          <StatusOption value='processed'>processed</StatusOption>
+        </SideBar.StatusFilter>
+        <SideBar.Button onClick={applySideBarFilters}>apply</SideBar.Button>
+      </SideBar.Menu>
+    </SideBar.Sidebar>
   );
 }
 

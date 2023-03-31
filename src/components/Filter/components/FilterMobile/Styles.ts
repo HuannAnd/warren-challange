@@ -1,11 +1,14 @@
 import styled from "styled-components";
-import filterIcon from '../../assets/filter-icon.svg'
-import { device } from "../../../Table/Styles";
+
+import filterIcon from '@/assets/filter-icon.svg'
+
+import { mediaQueries } from '@/constants/device'
+
 
 export const Container = styled.div`
     visibility: hidden;
 
-@media ${device.mobile} {
+@media ${mediaQueries.mobile} {
     visibility: visible;
     height: 52px;
     width: 52px;

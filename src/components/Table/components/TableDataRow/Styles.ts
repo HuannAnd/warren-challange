@@ -1,5 +1,7 @@
 import styled from "styled-components";
-import { device } from "../../Styles";
+
+import { mediaQueries } from "@/constants/device";
+
 
 export const TRow = styled.tr`
     display: grid;
@@ -8,7 +10,7 @@ export const TRow = styled.tr`
     cursor: pointer;
     min-width: 200px;
     
-@media ${device.mobile} {
+@media ${mediaQueries.mobile} {
     position: relative;
     display: block;
     width: 100%;
@@ -36,7 +38,7 @@ export const TData = styled.td`
         background: #cc527a;
     }
 
-@media ${device.mobile} {
+@media ${mediaQueries.mobile} {
     display: block;
     width: 100%;
     text-align: right;

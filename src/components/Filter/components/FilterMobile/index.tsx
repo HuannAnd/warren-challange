@@ -1,18 +1,12 @@
-import { useContext } from "react";
-import { GlobalPropsContext } from "../../../Home";
+import { useContext, useState } from "react";
+
 import * as StylesFilterMobile from './Styles'
 
 const FilterMobile = () => {
-  const { openSidebarFilters, setOpenSidebarFilters } = useContext(GlobalPropsContext)
+  const [isOpen, setIsOpen] = useState(false);
 
-  return (
-    <StylesFilterMobile.Container onClick={() => {
-      setOpenSidebarFilters!(isOpen => !isOpen); console.log(openSidebarFilters);
-    }}>
+  return <StylesFilterMobile.Container onClick={() => setIsOpen(isOpen => !isOpen)}></StylesFilterMobile.Container>
 
-    </StylesFilterMobile.Container>
-
-  );
 }
 
 export default FilterMobile;

@@ -1,28 +1,33 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 
-import { Loading, Header, Home, PopUp, Table } from '@/components/index'
+import { Loading } from '@/components'
 
-import { GlobalStyles } from './Global'
- 
-import { useLoading } from '@/hooks/useLoading'
+import Home from '@/pages/Home'
+
 import { useTransactions } from '@/hooks/useTransactions'
 
 
 function App() {
   const { transactions } = useTransactions();
-  const { loading } = useLoading();
+  const [loading, setLoading] = useState(true);
   const [popupIsOpen, setPopupIsOpen] = useState<boolean>(false);
 
+  function delayToClose() {
+    setTimeout(() => {
+      // setLoading(state => !state)
+      console.log(loading)
+    }, 8000)
+  }
+
+  delayToClose();
 
   return (
-    <>
-      <GlobalStyles />
-      {loading ? (
-        <Loading loading={loading} />
-      ) : <Home />
-    </>
-
-  )
+    false ? (
+      <Loading loading={loading} />
+    ) : (
+      <Home />
+    )
+  );
 
 }
 

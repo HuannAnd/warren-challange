@@ -3,7 +3,7 @@ const devices = {
 }
 
 const mediaQueries = {
-  mobile: `(max-width: ${devices.mobile}`,
+  mobile: `(max-width: ${devices.mobile})`,
 
 }
 
