@@ -9,6 +9,7 @@ import { useTransactions } from '@/hooks/useTransactions'
 
 function App() {
   const { transactions } = useTransactions();
+  
   const [loading, setLoading] = useState(true);
   const [popupIsOpen, setPopupIsOpen] = useState<boolean>(false);
 

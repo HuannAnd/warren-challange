@@ -7,8 +7,6 @@ import React, {
 
 import * as TableS from './Styles';
 
-import TransactionType from 'src/utils/TransactionType';
-
 import TableDataRow from './components/TableDataRow';
 
 import { useFilter } from '@/hooks/useFilter';
@@ -22,18 +20,15 @@ const Table = () => {
   const [, { checker }] = useFilter();
 
   function handleTransactions() {
-    if (transactions?.every(x => !x)) {
-      return [];
-    }
+    if (!transactions || transactions?.every(x => !x)) return
 
-    return transactions?.map(transaction => <TableDataRow transaction={transaction} key={transaction.id} />)
+    const display = organazingByDate(transactions).map(transaction => <TableDataRow transaction={transaction} key={transaction.id} />)
+    return display
 
   }
 
   return (
-
     <TableS.Table>
-
       <TableS.THead>
         <TableS.TRow>
           <TableS.Th>Title</TableS.Th>
@@ -42,9 +37,7 @@ const Table = () => {
           <TableS.Th>Amount</TableS.Th>
         </TableS.TRow>
       </TableS.THead>
-
       <TableS.TBody>{handleTransactions()}</TableS.TBody>
-
     </TableS.Table>
   );
 }

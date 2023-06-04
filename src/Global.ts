@@ -64,7 +64,4 @@ export const GlobalStyles = createGlobalStyle`
         column-gap: 30px;
         margin-top: 150px;
     }
-    
-
-
 `

@@ -23,17 +23,6 @@ export function useAmount() {
 
   }, [amount, option])
 
-  function sideBarClick() {
-
-  }
-
-  const result:
-    [
-      number | undefined,
-      (boolean | ((x: TransactionType) => boolean)),
-      string
-    ] = [amount, state!, option]
-
-  return result;
+  return { amount, state, option };
 
 }
