@@ -52,7 +52,7 @@ export const Item = styled.div<Pick<PropsItem, 'isSelected'>>`
     color: ${props => props.isSelected ? "#ddd" : "#ccc"};
     background: ${props => props.isSelected ? "#333" : "#222"};
     text-align: center;
-    font-weight: 600;
+    font-weight: 500;
     
 
     &:hover {
@@ -66,7 +66,7 @@ export const Item = styled.div<Pick<PropsItem, 'isSelected'>>`
 
 export const ValueOn = styled.div`
     color: #fff;
-    font-weight: 600;
+    font-weight: 500;
     opacity: .4;
 `
 

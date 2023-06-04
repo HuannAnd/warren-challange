@@ -18,7 +18,6 @@ import { DocumentData } from "firebase/firestore";
 
 type ValueProps = {
   transactions: TransactionType[] | undefined
-  setTransactions: Dispatch<SetStateAction<TransactionType[] | undefined>>
 }
 
 type TransactionsContextProviderProps = {
@@ -28,29 +27,33 @@ type TransactionsContextProviderProps = {
 export const TransactionsContext = createContext({} as ValueProps);
 
 export default function TransactionsContextProvider({ children }: TransactionsContextProviderProps) {
-  const [transactions, setTransactions] = useState<TransactionType[] | undefined>();
+  const [transactions, setTransactions] = useState<TransactionType[]>([]);
   const { delayToClose } = useLoading();
 
   useEffect(() => {
     const getTransaction = async () => {
       const data = await getDocs(literalCollectionDatabase);
-    
+
       const mappingData = data.docs.map((doc: DocumentData) => ({ ...doc.data(), id: doc.id }));
 
-      setTransactions(mappingData);
-    }
+      console.log(mappingData);
 
-    async() => {
-      await getTransaction().finally(() => delayToClose())
-      return
-    }
+
+      setTransactions(mappingData);
+    } // @utils
+
+    getTransaction().finally(() => {
+      delayToClose();
+    });
 
   },
-  []  
+    []
   );
-  
+
+
+
   return (
-    <TransactionsContext.Provider value={{ transactions, setTransactions }}>
+    <TransactionsContext.Provider value={transactions}>
       {children}
     </TransactionsContext.Provider>
   );

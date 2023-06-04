@@ -12,10 +12,9 @@ type DropdownProps = {
 }
 
 const Dropdown = ({ placeHolder, options }: DropdownProps) => {
-  const [
-    { showMenu, text },
-    { itemClick, isSelected, dropdownClick }
-  ] = useDropdownLogic(placeHolder);
+  const {
+    
+  } = useDropdownLogic(placeHolder);
 
   return (
     <StylesDropdown.Container onClick={dropdownClick}>

@@ -1,4 +1,4 @@
-import {Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 
 import TransactionType from 'src/utils/TransactionType';
 
@@ -27,9 +27,9 @@ type HandlersType = {
 
 export function useFilter() {
   const [filter, setfilter] = useState<FilterType>({} as FilterType);
-  const [arbitraryFilter, setArbitraryFilter] = useState<FilterType>({} as FilterType);
+  const [arbitraryFilter, setArbitraryFilter] = useState<FilterType>({} as FilterType); // ??
 
-  const [amount, amountFunction] = useAmount();
+  // const { amount } = useAmount();
 
   function handleAllFilters(transaction: TransactionType) {
     if (filter.title && !transaction.title?.includes(filter!.title)) {
@@ -40,10 +40,6 @@ export function useFilter() {
       return false
 
     }
-    // if (filter.amount && amountFunction(transaction)) {
-    //   return false
-
-    // }
 
     return true
 
@@ -54,7 +50,7 @@ export function useFilter() {
     filter: filter
   }
 
-  const handlers: HandlersType= {
+  const handlers: HandlersType = {
     apply: setfilter,
     choose: setArbitraryFilter,
     checker: handleAllFilters
@@ -63,5 +59,8 @@ export function useFilter() {
 
   const result: [StatesType, HandlersType] = [states, handlers]
   return result
+  return {
+    
+  }
 
 }
