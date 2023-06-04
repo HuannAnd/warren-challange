@@ -1,9 +1,13 @@
 const devices = {
-  mobile: '600px'
+  mobile: '640px',
+  tablet: '768px',
+  computer: '1024px'
 }
 
 const mediaQueries = {
-  mobile: `(max-width: ${devices.mobile})`,
+  sm: `(max-width: ${devices.mobile})`,
+  md: `(max-width: ${devices.tablet})`,
+  lg: `(max-width: ${devices.computer})`
 
 }
 

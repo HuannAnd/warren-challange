@@ -14,10 +14,10 @@ type TableDataRowProps = {
 }
 
 const TableDataRow= ({ transaction }: TableDataRowProps) => {
-  const [{ selectedModals }, { handler }] = useModal()
+  const {selectedModals, handleModalRows} = useModal()
 
   return (
-    <C.TRow onClick={() => handler(transaction)}>
+    <C.TRow onClick={() => handleModalRows(transaction)}>
       <C.TData data-label="Title">{transaction.title}</C.TData>
       <C.TData data-label="Description">{transaction.description}</C.TData>
       <C.TData data-label="Status">{transaction.status}</C.TData>

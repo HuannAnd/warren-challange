@@ -1,28 +1,31 @@
-import React, {
-  createContext,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
-
 import * as TableS from './Styles';
 
 import TableDataRow from './components/TableDataRow';
 
 import { useFilter } from '@/hooks/useFilter';
-import { useModal } from '@/hooks/useModal';
-
-import { organazingByDate } from '@/utils/organizingByDate'
 import { useTransactions } from '@/hooks/useTransactions';
 
+import { organazingByDate } from '@/utils/organizingByDate'
+import TransactionType from '@/utils/TransactionType';
+// import handleTransactions from '@/utils/handleTransactions';
+
 const Table = () => {
-  const { transactions } = useTransactions();
-  const [, { checker }] = useFilter();
+  const transactions = useTransactions();
 
-  function handleTransactions() {
-    if (!transactions || transactions?.every(x => !x)) return
+  const { handleAllFilters } = useFilter();
 
-    const display = organazingByDate(transactions).map(transaction => <TableDataRow transaction={transaction} key={transaction.id} />)
+  const heads = [
+    "Title",
+    "Description",
+    "Status",
+    "Amount"
+  ]
+
+  function handleTransactions(transactions: TransactionType[]) {
+    if (transactions && transactions.length === 0) return
+
+
+    const display = organazingByDate(transactions).filter(handleAllFilters).map(transaction => <TableDataRow transaction={transaction} key={transaction.id} />)
     return display
 
   }
@@ -31,13 +34,10 @@ const Table = () => {
     <TableS.Table>
       <TableS.THead>
         <TableS.TRow>
-          <TableS.Th>Title</TableS.Th>
-          <TableS.Th>Description</TableS.Th>
-          <TableS.Th>Status</TableS.Th>
-          <TableS.Th>Amount</TableS.Th>
+          {heads.map((head, index) => <TableS.Th key={index}>{head}</TableS.Th>)}
         </TableS.TRow>
       </TableS.THead>
-      <TableS.TBody>{handleTransactions()}</TableS.TBody>
+      <TableS.TBody>{handleTransactions(transactions)}</TableS.TBody>
     </TableS.Table>
   );
 }

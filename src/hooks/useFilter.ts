@@ -1,66 +1,50 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 
 import TransactionType from 'src/utils/TransactionType';
 
-import { useAmount } from '@/hooks/useAmount';
+import useSiteContext from './useSiteContext';
 
-
-type FilterType = {
-  title: string,
-  status: string,
-  amount: {
-    value: number,
-    toFilter: () => boolean
-  },
-}
-
-type StatesType = {
-  preview: FilterType,
-  filter: FilterType
-}
-
-type HandlersType = {
-  apply: Dispatch<SetStateAction<FilterType>>,
-  choose: Dispatch<SetStateAction<FilterType>>,
-  checker: (transaction: TransactionType) => boolean,
-}
 
 export function useFilter() {
-  const [filter, setfilter] = useState<FilterType>({} as FilterType);
-  const [arbitraryFilter, setArbitraryFilter] = useState<FilterType>({} as FilterType); // ??
+  const {
+    title,
+    status,
+    setStatus,
+    setTitle
+  } = useSiteContext();
 
-  // const { amount } = useAmount();
+  const [_title, _setTitle] = useState("");
 
   function handleAllFilters(transaction: TransactionType) {
-    if (filter.title && !transaction.title?.includes(filter!.title)) {
+    if (title && !transaction.title?.includes(title)) {
       return false
 
     }
-    if (filter.status && transaction.status !== filter.status) {
+    if (status && transaction.status !== status) {
       return false
 
     }
 
     return true
-
   }
 
-  const states: StatesType = {
-    preview: arbitraryFilter,
-    filter: filter
+  function handleTitleChange(e: ChangeEvent<HTMLInputElement>) {
+    const newTitle = e.currentTarget.value;
+
+    _setTitle(newTitle);
   }
 
-  const handlers: HandlersType = {
-    apply: setfilter,
-    choose: setArbitraryFilter,
-    checker: handleAllFilters
-
+  function handleButtonTitleClick() {
+    setTitle(_title);
   }
 
-  const result: [StatesType, HandlersType] = [states, handlers]
-  return result
   return {
-    
+    title,
+    status,
+    handleAllFilters,
+    handleTitleChange,
+    handleButtonTitleClick,
+    setStatus
   }
 
 }

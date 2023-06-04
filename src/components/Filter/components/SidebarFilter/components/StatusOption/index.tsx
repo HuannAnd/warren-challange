@@ -10,12 +10,12 @@ type StatusOptionProps = {
 }
 
 const StatusOption = ({ value, children }: StatusOptionProps) => {
-  const [{ preview }, { choose }] = useFilter();
+  // const [{ preview }, { choose }] = useFilter();
 
   return (
     <SideBar.StatusOption
-      className={`${preview.status === value}`}
-      onClick={() => choose({ ...preview, status: value })}
+      // className={`${preview.status === value}`}
+      // onClick={() => choose({ ...preview, status: value })}
     >
       {children}
     </SideBar.StatusOption>

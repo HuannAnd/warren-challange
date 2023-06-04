@@ -16,15 +16,15 @@ import { literalCollectionDatabase } from "@/services/firebase";
 import { DocumentData } from "firebase/firestore";
 
 
-type ValueProps = {
-  transactions: TransactionType[] | undefined
+type ContextProps = {
+  transactions: TransactionType[]
 }
 
 type TransactionsContextProviderProps = {
   children: ReactNode
 }
 
-export const TransactionsContext = createContext({} as ValueProps);
+export const TransactionsContext = createContext([] as TransactionType[]);
 
 export default function TransactionsContextProvider({ children }: TransactionsContextProviderProps) {
   const [transactions, setTransactions] = useState<TransactionType[]>([]);

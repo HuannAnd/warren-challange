@@ -5,12 +5,13 @@ import { Loading } from '@/components'
 import Home from '@/pages/Home'
 
 import { useTransactions } from '@/hooks/useTransactions'
+import { useLoading } from './hooks/useLoading';
 
 
 function App() {
   const { transactions } = useTransactions();
-  
-  const [loading, setLoading] = useState(true);
+  const { loading } = useLoading();
+
   const [popupIsOpen, setPopupIsOpen] = useState<boolean>(false);
 
   function delayToClose() {
@@ -23,7 +24,7 @@ function App() {
   delayToClose();
 
   return (
-    false ? (
+    loading ? (
       <Loading loading={loading} />
     ) : (
       <Home />

@@ -6,14 +6,13 @@ import * as ModalS from './styles'
 
 
 const Modal = ({ transaction }: { transaction: TransactionType }) => {
-  const [, { handler }] = useModal()
+  const { handleModalRows } = useModal();
 
   return (
     <ModalS.Background>
       <ModalS.Modal>
         <ModalS.H1>{transaction.title}</ModalS.H1>
-
-        <ModalS.CloseIcon onClick={() => handler(transaction)} />
+        <ModalS.CloseIcon onClick={() => handleModalRows(transaction)} />
 
         <ModalS.StatusPainel status={transaction.status!}>
           <ModalS.Span

@@ -1,32 +1,23 @@
-import styled, {keyframes} from "styled-components";
+import styled, { keyframes } from "styled-components";
 
-import closeIcon from '@/assets/close-icon.svg'
+import { mediaQueries } from "@/constants/device";
 
-
-const size = {
-    mobile: '600px'
-}
-
-const device = {
-    mobile: `(max-height: ${size.mobile})`
-}
+import closeIcon from '@/assets/close-icon.svg';
 
 export const Background = styled.div`
-    position: absolute    ;
-    background: #1111119f;
-    width: 100%;
-    height: 100vh;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    position: absolute;
     display: flex;
+    top: 50%; left: 50%;
     justify-content: center;
     align-items: center;
+
+    border-radius: 99px;
     cursor: default;
+    box-shadow: 0 0 0 100vmax rgba(0,0,0,.3);
+    transform: translate(-50%, -50%);
+    z-index: 1;
     
-@media ${device.mobile} {
+@media ${mediaQueries.sm} {
     background: none;
     position: static;
     height: auto;
@@ -48,30 +39,32 @@ export const Modal = styled.section`
     position: relative;
     height: auto;
     width: 600px;
+    padding: 20px 60px;
+
     border-radius: 20px;
+
     background-color: #ddd;
     z-index: 2;
-    padding: 20px 60px;
     border: 2px solid #ffffff76;
     box-shadow: 0 0 10px #fff;
+
     animation: ${openingModal} 1750ms ease forwards;   
 
-@media ${device.mobile} {
+@media ${mediaQueries.sm} {
     position: absolute;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    border-radius: 0;
-    z-index: 2;
-    animation: none;
-    padding: 20px 20px;
     display: grid;
     grid-template-columns: 200px 1fr;
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+    top: 0;
+
+    border-radius: 0;
+    z-index: 2;
+
+    animation: none;
     transition: 600ms;
     animation: ${openingModalMobile} 200ms linear;
-
-
-    
 }
 `
 export const H1 = styled.h1`
@@ -83,26 +76,28 @@ export const H1 = styled.h1`
     font-size: 2.4rem;
     margin-bottom: 50px;
 
-@media ${device.mobile} {
+@media ${mediaQueries.sm} {
     font-size: 1rem;
     width: 200px;
     text-align: center;
 }
 `
 
-export const CloseIcon = styled.section`
+export const CloseIcon = styled.button`
     position: absolute;
-    top: 0;
-    left: calc(100% - 62px);
-    fill: #222;
-    object-fit: contain;
+    top: 0; left: calc(100% - 62px);
     width: 62px;
     height: 62px;
+
+    background: url(${closeIcon});
+
+    border: none;
+    fill: #222;
+    object-fit: contain;
     scale: 0.7;
     cursor: pointer;
-    background: url(${closeIcon});
-    
-@media ${device.mobile} {
+
+@media ${mediaQueries.sm} {
     position: absolute;
     top: 0;
     left: 0;
@@ -123,19 +118,19 @@ interface StatusProps {
 }
 
 function statusWidth(status: string) {
-    switch(status) {
+    switch (status) {
         case 'created':
-        return '0px'
+            return '0px'
         case 'processing':
-        return '158px'
+            return '158px'
         case 'processed':
-        return '320px'
+            return '320px'
         default:
-        return ''
+            return ''
     }
 }
 
-export const StatusPainel = styled.section<Pick<StatusProps , 'status' >>`
+export const StatusPainel = styled.section<Pick<StatusProps, 'status'>>`
     position: relative;
     width: 100%;
     display: flex;
@@ -145,9 +140,7 @@ export const StatusPainel = styled.section<Pick<StatusProps , 'status' >>`
     text-align: center;
     animation: ${statusPainelAppear} 1s linear;
 
-@media ${device.mobile} {
-    display: none;
-}
+@media ${mediaQueries.sm} { display: none; }
 
 &::before {
     width: ${props => statusWidth(props.status)};
@@ -162,9 +155,8 @@ export const StatusPainel = styled.section<Pick<StatusProps , 'status' >>`
     height: 11px;
     z-index: -1;
 
-@media ${device.mobile} {
-    display: none;
-}
+@media ${mediaQueries.sm} { display: none; } 
+
 }
 `
 
@@ -172,7 +164,7 @@ interface SpanProps {
     opacityIsPointFive?: boolean
 }
 
-export const Span = styled.section<Pick< SpanProps , 'opacityIsPointFive'  >>`
+export const Span = styled.section<Pick<SpanProps, 'opacityIsPointFive'>>`
 ${StatusPainel} & {
     width: 20px;
     height: 20px;
@@ -195,14 +187,14 @@ ${Span} & {
 }
 `
 export const Transference = styled.section`
-@media ${device.mobile} {
+@media ${mediaQueries.sm} {
     font-size: .7rem;
 }
 `
 export const H2 = styled.section`
     font-weight: 600;
     font-size: 1.3rem;
-@media ${device.mobile} {
+@media ${mediaQueries.sm} {
     font-size: .7rem;
 }
 
@@ -213,7 +205,7 @@ export const Strong = styled.section`
     transform: translateX(-100%);
     font-weight: 600;
     right: 0;
-@media ${device.mobile} {
+@media ${mediaQueries.sm} {
     font-size: .6rem;
 }
 `

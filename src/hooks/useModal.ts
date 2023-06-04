@@ -5,14 +5,7 @@ import TransactionType from "@/utils/TransactionType";
 
 export function useModal() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [selectedModals, setSelectedModals] = useState<TransactionType[]>([] as TransactionType[]);
-
-  useMemo(() => {
-    if (window.innerWidth >= 500) {
-      setSelectedModals([])
-    }
-
-  }, [window.innerWidth])
+  const [selectedModals, setSelectedModals] = useState([] as TransactionType[]);
 
   function handleModalRows(row: TransactionType): void {
     let newValue: TransactionType[];
@@ -63,8 +56,14 @@ export function useModal() {
     handler: handleModalRows
   }
 
-  const result: [StatesType, HandlersType] = [states, handlers]
+  // const result: [StatesType, HandlersType] = [states, handlers]
 
-  return result
+  // return result
+  return {
+    isOpen,
+    handleModalRows,
+    selectedModals
+    
+  }
 
 }

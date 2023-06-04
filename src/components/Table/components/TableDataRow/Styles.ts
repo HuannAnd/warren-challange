@@ -5,12 +5,12 @@ import { mediaQueries } from "@/constants/device";
 
 export const TRow = styled.tr`
     display: grid;
-    grid-template-columns: 215px 355px 200px 200px ;
+    grid-template-columns: 215px 355px 200px 200px;
     margin-bottom: 5px;
     cursor: pointer;
     min-width: 200px;
     
-@media ${mediaQueries.mobile} {
+@media ${mediaQueries.sm} {
     position: relative;
     display: block;
     width: 100%;
@@ -25,37 +25,27 @@ export const TData = styled.td`
     padding: 10px 15px;
     position: relative;
     
-    &:first-child
-    {
-        cursor: pointer;
-    }
-    &:nth-child(2n)
-    {
-        background: #e8175d;
-    }
-    &:nth-child(2n - 1)
-    {
-        background: #cc527a;
-    }
-
-@media ${mediaQueries.mobile} {
+@media ${mediaQueries.sm} {
     display: block;
     width: 100%;
     text-align: right;
     
-&::before {
-    content: attr(data-label);
-    position: absolute;
-    left: 0;
-    width: 50%;
-    padding-left: 16px;
-    text-align: left;
-    text-transform: uppercase;
-    font-weight: 800;
-    letter-spacing: 2px;
-    color: #fff;
-}
+    &::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 16px;
+        text-align: left;
+        text-transform: uppercase;
+        font-weight: 800;
+        letter-spacing: 2px;
+        color: #fff;
+    }
 }
 
+&:first-child       { cursor: pointer; }
+&:nth-child(2n)     { background: #e8175d; }
+&:nth-child(2n - 1) { background: #cc527a; }
     
 `

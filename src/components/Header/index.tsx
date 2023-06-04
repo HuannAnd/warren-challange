@@ -1,12 +1,10 @@
-import * as HeaderS from './styles'
+import { Container } from './styles'
 
-const Header = () => {
+export default function Header() {
   return (
-    <HeaderS.NavStyled>
-      <HeaderS.ImageStyled src='src\assets\warren-logo.png' />
-      <HeaderS.SpanStyled>Warren</HeaderS.SpanStyled>
-    </HeaderS.NavStyled>
+    <Container>
+      <img src='src\assets\warren-logo.png' />
+      <span>Warren</span>
+    </Container>
   );
 }
-
-export default Header;
