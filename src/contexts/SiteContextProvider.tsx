@@ -14,7 +14,7 @@ export default function SiteContextProvider({ children }: { children: React.Reac
 
 
   return (
-    <SiteContext.Provider value={{ title, setTitle, status, setStatus }}>
+  <SiteContext.Provider value={{ title, setTitle, status, setStatus }}>
       {children}
     </SiteContext.Provider>
   );

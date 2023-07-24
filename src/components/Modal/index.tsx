@@ -3,14 +3,22 @@ import { useModal } from '@/hooks/useModal'
 import TransactionType from 'src/utils/TransactionType'
 
 import * as ModalS from './styles'
+import { ForwardedRef, MutableRefObject, forwardRef, useEffect, useRef } from 'react'
 
+type ModalProps = {
+  transaction: TransactionType
+}
 
-const Modal = ({ transaction }: { transaction: TransactionType }) => {
-  const { handleModalRows } = useModal();
+const Modal = ({
+  transaction
+}: ModalProps) => {
+  const ref = useRef<HTMLDivElement>(null!);
+
+  const { handleModalRows } = useModal(ref as MutableRefObject<HTMLDivElement>);
 
   return (
     <ModalS.Background>
-      <ModalS.Modal>
+      <ModalS.Modal ref={ref}>
         <ModalS.H1>{transaction.title}</ModalS.H1>
         <ModalS.CloseIcon onClick={() => handleModalRows(transaction)} />
 

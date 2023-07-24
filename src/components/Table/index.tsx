@@ -1,18 +1,21 @@
+import { useMemo } from 'react';
+
 import * as TableS from './Styles';
 
 import TableDataRow from './components/TableDataRow';
 
+import { organazingByDate } from '@/utils/organizingByDate';
+
+import { useSiteContext } from '@/hooks';
 import { useFilter } from '@/hooks/useFilter';
 import { useTransactions } from '@/hooks/useTransactions';
 
-import { organazingByDate } from '@/utils/organizingByDate'
-import TransactionType from '@/utils/TransactionType';
-// import handleTransactions from '@/utils/handleTransactions';
-
-const Table = () => {
+export default function Table() {
   const transactions = useTransactions();
+  let display: JSX.Element[] = [];
 
   const { handleAllFilters } = useFilter();
+  const { title, status } = useSiteContext();
 
   const heads = [
     "Title",
@@ -21,14 +24,11 @@ const Table = () => {
     "Amount"
   ]
 
-  function handleTransactions(transactions: TransactionType[]) {
+  useMemo(() => {
     if (transactions && transactions.length === 0) return
 
-
-    const display = organazingByDate(transactions).filter(handleAllFilters).map(transaction => <TableDataRow transaction={transaction} key={transaction.id} />)
-    return display
-
-  }
+    display = organazingByDate(transactions).filter(handleAllFilters).map(transaction => <TableDataRow transaction={transaction} key={transaction.id} />)
+  }, [title, status]);
 
   return (
     <TableS.Table>
@@ -37,9 +37,7 @@ const Table = () => {
           {heads.map((head, index) => <TableS.Th key={index}>{head}</TableS.Th>)}
         </TableS.TRow>
       </TableS.THead>
-      <TableS.TBody>{handleTransactions(transactions)}</TableS.TBody>
+      <TableS.TBody>{display}</TableS.TBody>
     </TableS.Table>
   );
 }
-
-export default Table;

@@ -84,6 +84,10 @@ export const H1 = styled.h1`
 `
 
 export const CloseIcon = styled.button`
+@media ${mediaQueries.lg} {
+    width: 62px;
+    height: 62px;
+}
     position: absolute;
     top: 0; left: calc(100% - 62px);
     width: 62px;

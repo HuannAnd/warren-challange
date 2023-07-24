@@ -1,11 +1,40 @@
-import { useMemo, useState } from "react";
+import { MutableRefObject, useEffect, useMemo, useState } from "react";
 
 import TransactionType from "@/utils/TransactionType";
 
 
-export function useModal() {
+export function useModal(ref: MutableRefObject<HTMLDivElement>) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedModals, setSelectedModals] = useState([] as TransactionType[]);
+
+  useEffect(() => {
+    function handleWindowClick(e: MouseEvent) {
+      const {
+        top,
+        left,
+        right,
+        bottom
+      } = ref.current.getBoundingClientRect();
+      const { clientX, clientY } = e;
+
+      if (
+        !(clientX >= left &&
+          clientX <= right &&
+          clientY >= top &&
+          clientY <= bottom)
+      ) {
+        setIsOpen(false);
+      }
+    }
+
+    window.addEventListener("click", (e) => handleWindowClick(e))
+
+    return () => {
+      window.removeEventListener("click", (e) => handleWindowClick(e))
+    }
+  },
+    []
+  );
 
   function handleModalRows(row: TransactionType): void {
     let newValue: TransactionType[];
@@ -17,7 +46,6 @@ export function useModal() {
     }
 
     setSelectedModals(newValue)
-
   }
 
   function addModalRow(row: TransactionType): TransactionType[] {
@@ -33,37 +61,11 @@ export function useModal() {
     return newValue!
   }
 
-  type StatesType = {
-    isOpen: typeof isOpen,
-    selectedModals: typeof selectedModals
-  }
-
-  const states = {
-    isOpen: isOpen,
-    selectedModals: selectedModals
-  }
-
-  type HandlersType = {
-    add: typeof addModalRow,
-    remove: typeof removeModalRow,
-    handler: typeof handleModalRows
-
-  }
-
-  const handlers = {
-    add: addModalRow,
-    remove: removeModalRow,
-    handler: handleModalRows
-  }
-
-  // const result: [StatesType, HandlersType] = [states, handlers]
-
-  // return result
   return {
     isOpen,
     handleModalRows,
     selectedModals
-    
+
   }
 
 }

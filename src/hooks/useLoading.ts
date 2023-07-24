@@ -7,7 +7,6 @@ export function useLoading() {
   function delayToClose(seconds: number) {
     setTimeout(() => {
       setLoading(state => !state)
-      console.log(loading)
     }, seconds * 1000)
   }
 

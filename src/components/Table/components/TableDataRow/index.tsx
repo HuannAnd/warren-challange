@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 
 import TransactionType from "src/utils/TransactionType";
 
@@ -14,7 +14,9 @@ type TableDataRowProps = {
 }
 
 const TableDataRow= ({ transaction }: TableDataRowProps) => {
-  const {selectedModals, handleModalRows} = useModal()
+  const ref = useRef<HTMLDivElement>(null!)
+
+  const {selectedModals, handleModalRows} = useModal(ref);
 
   return (
     <C.TRow onClick={() => handleModalRows(transaction)}>
@@ -22,9 +24,7 @@ const TableDataRow= ({ transaction }: TableDataRowProps) => {
       <C.TData data-label="Description">{transaction.description}</C.TData>
       <C.TData data-label="Status">{transaction.status}</C.TData>
       <C.TData data-label="Amount">{`R$${transaction.amount}`}</C.TData>
-
       {selectedModals?.includes(transaction) && ( <Modal transaction={transaction!} /> )}
-      
     </C.TRow>
   )
 }
