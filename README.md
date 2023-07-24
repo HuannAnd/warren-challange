@@ -1,6 +1,7 @@
 # Warren Table
 
 <img style="width: 100%; height: auto;" src="./assets//banner2.png">
+<img style="width: 100%; height: auto;" src="./assets//banner3.png">
 
 Solution for Warren's frontend challange
 
