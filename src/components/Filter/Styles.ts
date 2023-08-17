@@ -14,8 +14,6 @@ const Container = styled.div`
   gap: 20px;
   margin-bottom: 32px;
 
-  
-  
   & > .Filter__input-container {
     display: flex;
     flex-direction: row;
@@ -25,7 +23,6 @@ const Container = styled.div`
       
       
   }
-
 `
 
 const Input = styled.input<Pick<InputProps, "$hasAlert">>`

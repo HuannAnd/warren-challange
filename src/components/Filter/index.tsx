@@ -1,8 +1,6 @@
 import { options } from '@/constants/statusOptions';
 
-import {
-  Dropdown,
-} from './components/index';
+import Dropdown from './Dropdown';
 
 import { Button, Input, Container } from './Styles';
 

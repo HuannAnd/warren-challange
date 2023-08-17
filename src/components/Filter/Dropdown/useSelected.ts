@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { options, StatusOption } from '@/constants/statusOptions'
 
-import useSetStatus from "../../hooks/useSetStatus";
+import useSetStatus from "../../../hooks/useSetStatus";
 
 export default function useDropdownLogic(placeHolder: string) {
   const [showMenu, setShowMenu] = useState<boolean>(false);
