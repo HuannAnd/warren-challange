@@ -1,13 +1,13 @@
 import { Container, Menu, Item } from './Styles';
 
-import Option from '@/utils/Option';
+import { StatusOption } from '@/constants/statusOptions';
 
-import { useSelected } from "@/hooks";
+import useSelected from "./useSelected";
 
 
 type DropdownProps = {
   placeHolder: string
-  options: Option[]
+  options: StatusOption[]
 
 }
 

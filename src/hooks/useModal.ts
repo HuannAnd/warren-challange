@@ -1,45 +1,33 @@
-import { MutableRefObject, useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 import TransactionType from "@/utils/TransactionType";
+import useIsMobile from "./useIsMobile";
 
 
-export function useModal(ref: MutableRefObject<HTMLDivElement>) {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+export default function useModal() {
   const [selectedModals, setSelectedModals] = useState([] as TransactionType[]);
+  console.log("selectedModals value: ", selectedModals)
+
+  const isMobile = useIsMobile()
+  console.log("isMobile inside useModal value: ", isMobile)
 
   useEffect(() => {
-    function handleWindowClick(e: MouseEvent) {
-      const {
-        top,
-        left,
-        right,
-        bottom
-      } = ref.current.getBoundingClientRect();
-      const { clientX, clientY } = e;
+    console.log("useEffect inside useModal has fired")
 
-      if (
-        !(clientX >= left &&
-          clientX <= right &&
-          clientY >= top &&
-          clientY <= bottom)
-      ) {
-        setIsOpen(false);
-      }
+    if (!isMobile) {
+      setSelectedModals([])
     }
 
-    window.addEventListener("click", (e) => handleWindowClick(e))
+    return
+  }, [isMobile])
 
-    return () => {
-      window.removeEventListener("click", (e) => handleWindowClick(e))
-    }
-  },
-    []
-  );
-
-  function handleModalRows(row: TransactionType): void {
+  function handleModalRows(e: React.MouseEvent<Element, MouseEvent>, row: TransactionType): void {
+    console.log("handleModalRows inside useModal has fired")
+    console.log("Event value inside handleModalRows: ", e)
+    e.stopPropagation()
     let newValue: TransactionType[];
 
-    if (selectedModals?.findIndex(t => t.id === row.id) >= 0) {
+    if (selectedModals?.findIndex(t => t?.id === row.id) >= 0) {
       newValue = removeModalRow(row);
     } else {
       newValue = addModalRow(row);
@@ -56,16 +44,15 @@ export function useModal(ref: MutableRefObject<HTMLDivElement>) {
   }
 
   function removeModalRow(row: TransactionType) {
-    const newValue = selectedModals?.filter(selected => selected.id !== row.id)
+    const newValue = selectedModals?.filter(selected => selected?.id !== row.id)
 
     return newValue!
   }
 
+
   return {
-    isOpen,
     handleModalRows,
     selectedModals
-
   }
 
 }

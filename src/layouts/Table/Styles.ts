@@ -2,7 +2,7 @@ import styled from "styled-components"
 
 import { mediaQueries } from "@/constants/device"
 
-export const Table = styled.table`
+export const Root = styled.table`
 @media ${mediaQueries.lg} {
     display: flex;
     flex-direction: column;
@@ -28,15 +28,16 @@ export const Th = styled.th`
 
 
 `
-export const THead = styled.thead`
+export const Head = styled.thead`
 @media ${mediaQueries.sm} {
     display: none ;
 }
 `
 
-export const TBody = styled.tbody`
+export const Body = styled.tbody`
 @media ${mediaQueries.lg} {
     display: flex;
+    flex-direction: column;
 }
 
 @media ${mediaQueries.sm} {
@@ -45,13 +46,13 @@ export const TBody = styled.tbody`
     margin-bottom: 20px;
 }
 `
-export const TRow = styled.tr`
+export const Row = styled.tr`
     display: grid;
     grid-template-columns: 215px 355px 200px 200px ;
     margin-bottom: 5px;
 
-${THead} & ,
-${TBody} & {
+${Head} & ,
+${Body} & {
     display: grid;
     grid-template-columns: 215px 355px 200px 200px ;
     margin-bottom: 5px;

@@ -4,27 +4,6 @@ import { mediaQueries } from "@/constants/device";
 
 import closeIcon from '@/assets/close-icon.svg';
 
-export const Background = styled.div`
-    position: absolute;
-    display: flex;
-    top: 50%; left: 50%;
-    justify-content: center;
-    align-items: center;
-
-    border-radius: 99px;
-    cursor: default;
-    box-shadow: 0 0 0 100vmax rgba(0,0,0,.3);
-    transform: translate(-50%, -50%);
-    z-index: 1;
-    
-@media ${mediaQueries.sm} {
-    background: none;
-    position: static;
-    height: auto;
-    
-}
-`
-
 const openingModal = keyframes`
     0%      { height: 554px; }
     100%    { height: 580px; }
@@ -35,8 +14,10 @@ const openingModalMobile = keyframes`
     to      { opacity: 1; }
 `
 
-export const Modal = styled.section`
-    position: relative;
+export const Root = styled.dialog`
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
     height: auto;
     width: 600px;
     padding: 20px 60px;
@@ -44,11 +25,17 @@ export const Modal = styled.section`
     border-radius: 20px;
 
     background-color: #ddd;
-    z-index: 2;
+    z-index: 100;
     border: 2px solid #ffffff76;
-    box-shadow: 0 0 10px #fff;
+    /* box-shadow: 0 0 10px #fff; */
 
     animation: ${openingModal} 1750ms ease forwards;   
+
+    ::backdrop {
+        display: block;
+        background: rgba(0,0,0,.3);
+        z-index: 99;
+    }
 
 @media ${mediaQueries.sm} {
     position: absolute;
@@ -57,7 +44,8 @@ export const Modal = styled.section`
     height: 100%;
     width: 100%;
     padding: 20px;
-    top: 0;
+    top: 0; left: 0;
+    transform: translate(0, 0);
 
     border-radius: 0;
     z-index: 2;
@@ -92,6 +80,7 @@ export const CloseIcon = styled.button`
     top: 0; left: calc(100% - 62px);
     width: 62px;
     height: 62px;
+    pointer-events: all;
 
     background: url(${closeIcon});
 
@@ -108,6 +97,7 @@ export const CloseIcon = styled.button`
     background: transparent;
     width: 100%;
     height: 100%;
+    display: none;
 }
 
 `

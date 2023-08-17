@@ -1,4 +1,4 @@
-import { Loading } from '@/components'
+import Loading from '@/layouts/Loading'
 
 import Home from '@/pages/Home'
 

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 type InputProps = {
-  isAlert: boolean
+  $hasAlert: boolean
 }
 
 const Container = styled.div`
@@ -28,7 +28,7 @@ const Container = styled.div`
 
 `
 
-const Input = styled.input<Pick<InputProps, "isAlert">>`
+const Input = styled.input<Pick<InputProps, "$hasAlert">>`
   height: 32px;
   box-sizing: content-box;
   padding: 10px;
@@ -45,7 +45,7 @@ const Input = styled.input<Pick<InputProps, "isAlert">>`
   font-size: 1rem;
   font-family: "Poppins", sans-serif;
 
-  ${props => props.isAlert && {}}
+  ${props => props.$hasAlert && {}}
 
 &:focus {
   outline: none;

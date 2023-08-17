@@ -1,56 +1,75 @@
-import { useModal } from '@/hooks/useModal'
-
 import TransactionType from 'src/utils/TransactionType'
 
-import * as ModalS from './styles'
-import { ForwardedRef, MutableRefObject, forwardRef, useEffect, useRef } from 'react'
+import * as Modal from './styles'
+import { useEffect, useRef } from 'react'
+import useModal from '@/hooks/useModal'
 
 type ModalProps = {
   transaction: TransactionType
 }
 
-const Modal = ({
-  transaction
-}: ModalProps) => {
-  const ref = useRef<HTMLDivElement>(null!);
+export default function Component({ transaction }: ModalProps) {
+  const modal = useRef<HTMLDialogElement>(null!)
 
-  const { handleModalRows } = useModal(ref as MutableRefObject<HTMLDivElement>);
+  const { selectedModals } = useModal()
+
+  useEffect(() => {
+    console.log("useEffect to show modal has fired")
+    if (selectedModals.includes(transaction)) {
+      modal.current.showModal()
+      modal.current.show()
+    }
+
+    return 
+  },
+    [selectedModals]
+  )
+  useEffect(() => {
+    const handleWindowClick = () => modal.current.close()
+
+    window.addEventListener("click", handleWindowClick)
+    return () => {
+      window.removeEventListener("click", handleWindowClick)
+    }
+  },
+    []
+  )
+  function handleModalClosing(e: React.MouseEvent<Element, MouseEvent>) {
+    e.stopPropagation()
+    modal.current.close()
+  }
 
   return (
-    <ModalS.Background>
-      <ModalS.Modal ref={ref}>
-        <ModalS.H1>{transaction.title}</ModalS.H1>
-        <ModalS.CloseIcon onClick={() => handleModalRows(transaction)} />
+    <Modal.Root open ref={modal}>
+      <Modal.H1>{transaction.title}</Modal.H1>
+      <Modal.CloseIcon onClick={handleModalClosing} />
 
-        <ModalS.StatusPainel status={transaction.status!}>
-          <ModalS.Span
-            opacityIsPointFive={transaction.status === 'created'}
-          ><ModalS.H3>Criado</ModalS.H3>
-          </ModalS.Span>
-          <ModalS.Span
-            opacityIsPointFive={transaction.status === 'processing'}
-          ><ModalS.H3>Em processo</ModalS.H3>
-          </ModalS.Span>
-          <ModalS.Span
-            opacityIsPointFive={transaction.status === 'processed'}
-          ><ModalS.H3>Processado</ModalS.H3>
-          </ModalS.Span>
-        </ModalS.StatusPainel>
+      <Modal.StatusPainel status={transaction.status!}>
+        <Modal.Span
+          opacityIsPointFive={transaction.status === 'created'}
+        ><Modal.H3>Criado</Modal.H3>
+        </Modal.Span>
+        <Modal.Span
+          opacityIsPointFive={transaction.status === 'processing'}
+        ><Modal.H3>Em processo</Modal.H3>
+        </Modal.Span>
+        <Modal.Span
+          opacityIsPointFive={transaction.status === 'processed'}
+        ><Modal.H3>Processado</Modal.H3>
+        </Modal.Span>
+      </Modal.StatusPainel>
 
-        <ModalS.Transference>
-          <ModalS.H2>Transferindo de</ModalS.H2>
-          <ModalS.Span>{transaction.from}</ModalS.Span>
-          <ModalS.Strong>{`R$${transaction.amount}`}</ModalS.Strong>
-          <ModalS.HR />
-          <ModalS.H2>Para</ModalS.H2>
-          <ModalS.Span>{transaction.to}</ModalS.Span>
-          <ModalS.Strong>{`R$${transaction.amount}`}</ModalS.Strong>
-          <ModalS.HR />
-        </ModalS.Transference>
+      <Modal.Transference>
+        <Modal.H2>Transferindo de</Modal.H2>
+        <Modal.Span>{transaction.from}</Modal.Span>
+        <Modal.Strong>{`R$${transaction.amount}`}</Modal.Strong>
+        <Modal.HR />
+        <Modal.H2>Para</Modal.H2>
+        <Modal.Span>{transaction.to}</Modal.Span>
+        <Modal.Strong>{`R$${transaction.amount}`}</Modal.Strong>
+        <Modal.HR />
+      </Modal.Transference>
 
-      </ModalS.Modal>
-    </ModalS.Background>
+    </Modal.Root>
   );
 }
-
-export default Modal;

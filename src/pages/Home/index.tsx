@@ -1,4 +1,6 @@
-import { Table, Filter, Header } from "@/components";
+import Header from "@/layouts/Header";
+import Filter from "@/components/Filter";
+import Table from "@/layouts/Table";
 
 import { Container } from './styles'
 

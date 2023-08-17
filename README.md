@@ -9,18 +9,23 @@ Solution for Warren's frontend challange
 
 This table was a training to boost frontend developers from the Warren, an international company of payment, link about project [Warren Project](URL_do_link)
 
-## Compiles and minifies for production
+## Installation and run
+
+Install Node Packgage Manager in your machine [Node installation](https://nodejs.org/en/download) and run the following commands in terminal:
 
 ```
+  npm install
   npm run dev
 ```
 
-## Developing 
+## Developing
 
 This application was built in React.js and Styled-components
 
 ## Functionalaties
 
+- Table
+  - Organizing transactions by date (recent)
 - Modal
   - Close and open modal
   - Show price, author and progressive
@@ -29,5 +34,3 @@ This application was built in React.js and Styled-components
 - Filter
   - Search by title
   - Serach by status
-
-

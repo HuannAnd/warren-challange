@@ -1,5 +1,5 @@
 import { options } from "@/constants/statusOptions";
-import { useFilter } from "@/hooks/useFilter";
+import { useFilter } from "@/components/Filter/useFilterHandles";
 import { ReactNode } from "react";
 
 import * as SideBar from './styles'
@@ -14,8 +14,8 @@ const StatusOption = ({ value, children }: StatusOptionProps) => {
 
   return (
     <SideBar.StatusOption
-      // className={`${preview.status === value}`}
-      // onClick={() => choose({ ...preview, status: value })}
+    // className={`${preview.status === value}`}
+    // onClick={() => choose({ ...preview, status: value })}
     >
       {children}
     </SideBar.StatusOption>

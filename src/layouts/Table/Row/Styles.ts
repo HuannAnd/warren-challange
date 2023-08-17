@@ -3,12 +3,15 @@ import styled from "styled-components";
 import { mediaQueries } from "@/constants/device";
 
 
-export const TRow = styled.tr`
+export const Root = styled.tr`
     display: grid;
     grid-template-columns: 215px 355px 200px 200px;
     margin-bottom: 5px;
-    cursor: pointer;
     min-width: 200px;
+
+    &:hover {
+        cursor: pointer;
+    }
     
 @media ${mediaQueries.sm} {
     position: relative;
@@ -20,7 +23,7 @@ export const TRow = styled.tr`
 }
 `
 
-export const TData = styled.td`
+export const Data = styled.td`
     color: #fff;
     padding: 10px 15px;
     position: relative;

@@ -44,6 +44,7 @@ export const GlobalStyles = createGlobalStyle`
         font-family: 'Poppins' , sans-serif;
         font-size: 1.125em;
         background: linear-gradient(145deg, #e02b57, #222); 
+
     }
     body 
     {

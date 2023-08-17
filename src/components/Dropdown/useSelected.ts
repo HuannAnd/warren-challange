@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 
-import { useFilter } from "./useFilter";
+import { options, StatusOption } from '@/constants/statusOptions'
 
-import Option from "@/utils/Option";
-import { options } from '@/constants/statusOptions'
+import useSetStatus from "../../hooks/useSetStatus";
 
 export default function useDropdownLogic(placeHolder: string) {
   const [showMenu, setShowMenu] = useState<boolean>(false);
-  const [selectedValue, setSelectedValue] = useState<Option | null>(options[0]);
+  const [selectedValue, setSelectedValue] = useState<StatusOption | null>(options[0]);
 
-  const { setStatus } = useFilter();
+  const setStatus = useSetStatus()
 
   useEffect(() => {
     const handleWindowClick = () => setShowMenu(false);
@@ -24,16 +23,16 @@ export default function useDropdownLogic(placeHolder: string) {
   )
 
 
-  function isSelected(option: Option): boolean {
+  function isSelected(option: StatusOption): boolean {
     return option.value === selectedValue?.value
   }
 
-  function onItemClick(option: Option): boolean {
+  function onItemClick(option: StatusOption): boolean {
     setStatus(option.value);
     setSelectedValue(option)
-    if (selectedValue) return false
+    if (!selectedValue) return false
 
-    return selectedValue!.label === option.label
+    return selectedValue.label === option.label
 
   }
 
