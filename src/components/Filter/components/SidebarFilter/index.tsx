@@ -1,26 +1,15 @@
-import { ReactNode, useState } from 'react';
+import { useState } from 'react';
 
-import * as SideBar from './Styles'
+import * as SideBar from './Styles';
 
 import StatusOption from './components/StatusOption/index';
-
-import TransactionType from '@/utils/TransactionType';
-import { useFilter } from '@/hooks/useFilter';
 
 
 const SidebarFilters = () => {
   const [isOpen, setisOpen] = useState(false);
 
-  const [{ preview }, { apply }] = useFilter()
-
-  function applySideBarFilters() {
-    apply(preview)
-    setisOpen(false)
-
-  }
-
   function closeSideBar() {
-    setisOpen(false)
+    setisOpen(false);
   }
 
   if (!isOpen) return null
@@ -38,7 +27,7 @@ const SidebarFilters = () => {
           <StatusOption value='processing'>processing</StatusOption>
           <StatusOption value='processed'>processed</StatusOption>
         </SideBar.StatusFilter>
-        <SideBar.Button onClick={applySideBarFilters}>apply</SideBar.Button>
+        <SideBar.Button>apply</SideBar.Button>
       </SideBar.Menu>
     </SideBar.Sidebar>
   );

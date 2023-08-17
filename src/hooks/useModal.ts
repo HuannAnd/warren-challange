@@ -1,30 +1,39 @@
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 import TransactionType from "@/utils/TransactionType";
+import useIsMobile from "./useIsMobile";
 
 
-export function useModal() {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [selectedModals, setSelectedModals] = useState<TransactionType[]>([] as TransactionType[]);
+export default function useModal() {
+  const [selectedModals, setSelectedModals] = useState([] as TransactionType[]);
+  console.log("selectedModals value: ", selectedModals)
 
-  useMemo(() => {
-    if (window.innerWidth >= 500) {
+  const isMobile = useIsMobile()
+  console.log("isMobile inside useModal value: ", isMobile)
+
+  useEffect(() => {
+    console.log("useEffect inside useModal has fired")
+
+    if (!isMobile) {
       setSelectedModals([])
     }
 
-  }, [window.innerWidth])
+    return
+  }, [isMobile])
 
-  function handleModalRows(row: TransactionType): void {
+  function handleModalRows(e: React.MouseEvent<Element, MouseEvent>, row: TransactionType): void {
+    console.log("handleModalRows inside useModal has fired")
+    console.log("Event value inside handleModalRows: ", e)
+    e.stopPropagation()
     let newValue: TransactionType[];
 
-    if (selectedModals?.findIndex(t => t.id === row.id) >= 0) {
+    if (selectedModals?.findIndex(t => t?.id === row.id) >= 0) {
       newValue = removeModalRow(row);
     } else {
       newValue = addModalRow(row);
     }
 
     setSelectedModals(newValue)
-
   }
 
   function addModalRow(row: TransactionType): TransactionType[] {
@@ -35,36 +44,15 @@ export function useModal() {
   }
 
   function removeModalRow(row: TransactionType) {
-    const newValue = selectedModals?.filter(selected => selected.id !== row.id)
+    const newValue = selectedModals?.filter(selected => selected?.id !== row.id)
 
     return newValue!
   }
 
-  type StatesType = {
-    isOpen: typeof isOpen,
-    selectedModals: typeof selectedModals
+
+  return {
+    handleModalRows,
+    selectedModals
   }
-
-  const states = {
-    isOpen: isOpen,
-    selectedModals: selectedModals
-  }
-
-  type HandlersType = {
-    add: typeof addModalRow,
-    remove: typeof removeModalRow,
-    handler: typeof handleModalRows
-
-  }
-
-  const handlers = {
-    add: addModalRow,
-    remove: removeModalRow,
-    handler: handleModalRows
-  }
-
-  const result: [StatesType, HandlersType] = [states, handlers]
-
-  return result
 
 }

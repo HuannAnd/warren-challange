@@ -1,18 +1,15 @@
 import styled from "styled-components"
 
-export const size = {
-    mobile: '600px',
+import { mediaQueries } from "@/constants/device"
+
+export const Root = styled.table`
+@media ${mediaQueries.lg} {
+    display: flex;
+    flex-direction: column;
 
 }
 
-export const device = {
-    mobile: `(max-height: ${size.mobile})`
-    
-}
-
-export const Table = styled.table`
-
-@media ${device.mobile} {
+@media ${mediaQueries.sm} {
     display: block;
     width: 100%;
 }
@@ -31,36 +28,37 @@ export const Th = styled.th`
 
 
 `
-export const THead = styled.thead`
-
-
-@media ${device.mobile} {
+export const Head = styled.thead`
+@media ${mediaQueries.sm} {
     display: none ;
 }
 `
 
-export const TBody = styled.tbody`
+export const Body = styled.tbody`
+@media ${mediaQueries.lg} {
+    display: flex;
+    flex-direction: column;
+}
 
-
-@media ${device.mobile} {
+@media ${mediaQueries.sm} {
     display: block;
     width: 100%;
     margin-bottom: 20px;
 }
 `
-export const TRow = styled.tr`
+export const Row = styled.tr`
     display: grid;
     grid-template-columns: 215px 355px 200px 200px ;
     margin-bottom: 5px;
 
-${THead} & ,
-${TBody} & {
+${Head} & ,
+${Body} & {
     display: grid;
     grid-template-columns: 215px 355px 200px 200px ;
     margin-bottom: 5px;
 }
 
-    @media ${device.mobile} {
+    @media ${mediaQueries.sm} {
     display: block;
     width: 100%;
     margin-bottom: 15px;

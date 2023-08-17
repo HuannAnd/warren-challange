@@ -1,49 +1,75 @@
-import { useModal } from '@/hooks/useModal'
-
 import TransactionType from 'src/utils/TransactionType'
 
-import * as ModalS from './styles'
+import * as Modal from './styles'
+import { useEffect, useRef } from 'react'
+import useModal from '@/hooks/useModal'
 
-
-const Modal = ({ transaction }: { transaction: TransactionType }) => {
-  const [, { handler }] = useModal()
-
-  return (
-    <ModalS.Background>
-      <ModalS.Modal>
-        <ModalS.H1>{transaction.title}</ModalS.H1>
-
-        <ModalS.CloseIcon onClick={() => handler(transaction)} />
-
-        <ModalS.StatusPainel status={transaction.status!}>
-          <ModalS.Span
-            opacityIsPointFive={transaction.status === 'created'}
-          ><ModalS.H3>Criado</ModalS.H3>
-          </ModalS.Span>
-          <ModalS.Span
-            opacityIsPointFive={transaction.status === 'processing'}
-          ><ModalS.H3>Em processo</ModalS.H3>
-          </ModalS.Span>
-          <ModalS.Span
-            opacityIsPointFive={transaction.status === 'processed'}
-          ><ModalS.H3>Processado</ModalS.H3>
-          </ModalS.Span>
-        </ModalS.StatusPainel>
-
-        <ModalS.Transference>
-          <ModalS.H2>Transferindo de</ModalS.H2>
-          <ModalS.Span>{transaction.from}</ModalS.Span>
-          <ModalS.Strong>{`R$${transaction.amount}`}</ModalS.Strong>
-          <ModalS.HR />
-          <ModalS.H2>Para</ModalS.H2>
-          <ModalS.Span>{transaction.to}</ModalS.Span>
-          <ModalS.Strong>{`R$${transaction.amount}`}</ModalS.Strong>
-          <ModalS.HR />
-        </ModalS.Transference>
-
-      </ModalS.Modal>
-    </ModalS.Background>
-  );
+type ModalProps = {
+  transaction: TransactionType
 }
 
-export default Modal;
+export default function Component({ transaction }: ModalProps) {
+  const modal = useRef<HTMLDialogElement>(null!)
+
+  const { selectedModals } = useModal()
+
+  useEffect(() => {
+    console.log("useEffect to show modal has fired")
+    if (selectedModals.includes(transaction)) {
+      modal.current.showModal()
+      modal.current.show()
+    }
+
+    return 
+  },
+    [selectedModals]
+  )
+  useEffect(() => {
+    const handleWindowClick = () => modal.current.close()
+
+    window.addEventListener("click", handleWindowClick)
+    return () => {
+      window.removeEventListener("click", handleWindowClick)
+    }
+  },
+    []
+  )
+  function handleModalClosing(e: React.MouseEvent<Element, MouseEvent>) {
+    e.stopPropagation()
+    modal.current.close()
+  }
+
+  return (
+    <Modal.Root open ref={modal}>
+      <Modal.H1>{transaction.title}</Modal.H1>
+      <Modal.CloseIcon onClick={handleModalClosing} />
+
+      <Modal.StatusPainel status={transaction.status!}>
+        <Modal.Span
+          opacityIsPointFive={transaction.status === 'created'}
+        ><Modal.H3>Criado</Modal.H3>
+        </Modal.Span>
+        <Modal.Span
+          opacityIsPointFive={transaction.status === 'processing'}
+        ><Modal.H3>Em processo</Modal.H3>
+        </Modal.Span>
+        <Modal.Span
+          opacityIsPointFive={transaction.status === 'processed'}
+        ><Modal.H3>Processado</Modal.H3>
+        </Modal.Span>
+      </Modal.StatusPainel>
+
+      <Modal.Transference>
+        <Modal.H2>Transferindo de</Modal.H2>
+        <Modal.Span>{transaction.from}</Modal.Span>
+        <Modal.Strong>{`R$${transaction.amount}`}</Modal.Strong>
+        <Modal.HR />
+        <Modal.H2>Para</Modal.H2>
+        <Modal.Span>{transaction.to}</Modal.Span>
+        <Modal.Strong>{`R$${transaction.amount}`}</Modal.Strong>
+        <Modal.HR />
+      </Modal.Transference>
+
+    </Modal.Root>
+  );
+}

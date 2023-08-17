@@ -12,7 +12,7 @@ const Sidebar = styled.div`
     transform: translateX(100%);
     opacity: 0;
 
-@media ${mediaQueries.mobile} {
+@media ${mediaQueries.sm} {
     visibility: hidden;
     position: fixed;
     transform: translateX(100%);
@@ -118,46 +118,41 @@ const StatusFilter = styled.div`
 
 `
 const Label = styled.span`
-    /* SUBTITLE */
-
+    display: flex;
+    align-items: center;
+    text-align: center;
+    
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 700;
     font-size: 24px;
     line-height: 36px;
-    /* identical to box height */
-
-    display: flex;
-    align-items: center;
-    text-align: center;
-
-color: #FFFFFF;
-
     color: #FFFFFF;
+
 
 `
 const StatusOption = styled.li`
-    padding: 10px 27px;
-    gap: 10px;
-
     width: 142px;
-
-    background: #222222;
-    /* shadow-pattern */
-
-    box-shadow: 0px 0px 6px #111111;
-    border-radius: 10px;
-    text-align: center;
-    color: #fff;
+    padding: 10px 27px;
     align-self: center;
     list-style: none;
+    gap: 10px;
+
+    text-align: center;
+    color: #fff;
+
+    
+    background: #222222;
+    box-shadow: 0px 0px 6px #111111;
+    border-radius: 10px;
     cursor: pointer;
-    :hover {
-        filter: invert(1);
-    }
-    &.isSelected {
-        filter: invert(1);
-    }
+
+:hover {
+    filter: invert(1);
+}
+&.isSelected {
+    filter: invert(1);
+}
 
 
 `
@@ -188,14 +183,12 @@ const InputLabel = styled.label`
     width: auto;
     white-space: nowrap;
     text-overflow: clip;
-    /* BODY SMALL */
 
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 300;
     font-size: 16px;
     line-height: 24px;
-    /* identical to box height */
 
     text-align: center;
 
@@ -215,28 +208,27 @@ const Input = styled.input`
     height: 30px;
 
     background: #FFFFFF;
-    /* shadow-pattern */
 
     box-shadow: 0px 0px 6px #111111;
     border-radius: 10px;
 
 
-    &::placeholder {
-        font-family: 'Poppins';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 16px;
-        line-height: 24px;
-        display: flex;
-        align-items: center;
-        text-align: center;
+&::placeholder {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    text-align: center;
 
-        color: #CCCCCC;
-    }
+    color: #CCCCCC;
+}
 
-    &:focus {
-        outline: none;
-    }
+&:focus {
+    outline: none;
+}
 
 `
 const AmountOptions = styled.ul`
@@ -257,7 +249,6 @@ const AmountOption = styled.li<Pick<AmountOptionProps, 'icon'>>`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* padding: 7.39999px; */
     gap: 7.4px;
     background-image: url(${props => props.icon});
     background-repeat: no-repeat;

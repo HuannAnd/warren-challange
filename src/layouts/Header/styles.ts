@@ -12,7 +12,7 @@ const warrenTextTop: Keyframes = keyframes`
 	100% { transform: translateY(-100px)}
 `
 
-export const NavStyled = styled.header`
+export const Container = styled.header`
 	position: absolute;
 	display: flex;
 	flex-direction: row;
@@ -22,30 +22,26 @@ export const NavStyled = styled.header`
 
 	transform: translate(-50%, 10px);
 
-
-`
-
-export const ImageStyled = styled.img`
+& > img {
     position: relative;
     left: 0;
     height: 70px;
-    
+
     cursor: pointer;
 
     transform: translateX(0px);
     transition: left 1s ;
+}
 
-    ${NavStyled}:hover &
-    {
-        left: -125px;
+&:hover > img {
+    left: -125px;
 
-        transition-delay: 1s;
-        animation-direction: alternate;
-        animation: ${warrenBouncing} 1s ease-out forwards ;
-    }
-`
+    transition-delay: 1s;
+    animation-direction: alternate;
+    animation: ${warrenBouncing} 1s ease-out forwards ;
+}
 
-export const SpanStyled = styled.span`
+& > span {
     position: absolute;
     
     font-weight: 600;
@@ -62,13 +58,12 @@ export const SpanStyled = styled.span`
     transition: filter 2s 0s;   
     transition-timing-function: ease-in;
     animation: ${warrenTextTop} 1s;
-    
-    ${NavStyled}:hover &
-    {
-        opacity: 1;
-        
-        animation-direction: alternate;
-        transition: opacity 1.5s 1600ms;
-    }
+}
 
+&:hover > span {
+    opacity: 1;
+        
+    animation-direction: alternate;
+    transition: opacity 1.5s 1600ms;    
+}
 `

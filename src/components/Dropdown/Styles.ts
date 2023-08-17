@@ -20,10 +20,18 @@ export const Container = styled.div`
     box-shadow: 0 0 6px #111;
     z-index: 1;
 
-    @media ${mediaQueries.mobile} {
+    @media ${mediaQueries.sm} {
         z-index: 3;
         display: none;
     }
+
+    .Dropdown__content {
+        &__value-on {
+            color: #fff;
+        }
+    }
+
+    .Dropdown__icon {}
 
 `
 
@@ -44,7 +52,7 @@ export const Menu = styled.div`
 
 
 interface PropsItem {
-  isSelected: boolean
+    isSelected: boolean
 }
 
 export const Item = styled.div<Pick<PropsItem, 'isSelected'>>`
