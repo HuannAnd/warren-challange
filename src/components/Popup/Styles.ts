@@ -1,4 +1,4 @@
-import styled , {keyframes} from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 interface StylesPopUpProps {
     displayBlock: boolean
@@ -9,7 +9,7 @@ const borderBottom = keyframes`
     to { width: 100% }
 `
 
-const Popup = styled.div<Pick< StylesPopUpProps , 'displayBlock' >>`
+const Popup = styled.div<Pick<StylesPopUpProps, 'displayBlock'>>`
     background: #222;
     display: ${props => props.displayBlock ? 'block' : 'none'};
     position: absolute;
@@ -42,4 +42,4 @@ const Span = styled.span`
     color: #e8175d;     
 `
 
-export {Popup , Paragraph, Span}
+export { Popup, Paragraph, Span }

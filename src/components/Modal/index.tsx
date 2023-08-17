@@ -1,6 +1,7 @@
 import TransactionType from 'src/utils/TransactionType'
 
-import * as Modal from './styles'
+import * as Modal from './Styles'
+
 import { useEffect, useRef } from 'react'
 import useModal from '@/hooks/useModal'
 
@@ -17,7 +18,6 @@ export default function Component({ transaction }: ModalProps) {
     console.log("useEffect to show modal has fired")
     if (selectedModals.includes(transaction)) {
       modal.current.showModal()
-      modal.current.show()
     }
 
     return 

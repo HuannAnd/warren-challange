@@ -4,7 +4,7 @@ import {
   useState
 } from 'react'
 
-import * as StylesPopup from './styles'
+import * as StylesPopup from './Styles'
 
 
 type PopupProps = {

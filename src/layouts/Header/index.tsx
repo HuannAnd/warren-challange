@@ -1,4 +1,4 @@
-import { Container } from './styles'
+import { Container } from './Styles'
 
 export default function Header() {
   return (
