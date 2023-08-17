@@ -20,7 +20,6 @@ const heads = [
 ]
 export default function Index() {
   const transactions = useTransactions();
-  // let display: JSX.Element[] = [];
 
   const handleFilters = useTransactionFilterFunc();
   const title = useTitle()
